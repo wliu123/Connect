@@ -1,0 +1,27 @@
+type Users @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  username: String!
+  name: String
+  profile_picture: String
+  email: String!
+  Friends: [Friends] @manyToMany(relationName: "UsersFriends")
+  Hangouts: [Hangouts] @manyToMany(relationName: "UsersHangouts")
+}
+
+type Hangouts @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  title: String!
+  location: String!
+  created_by: String!
+  joined_by: [String]
+  date: AWSDate!
+  public: Boolean
+  userss: [Users] @manyToMany(relationName: "UsersHangouts")
+}
+
+type Friends @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  follower: ID!
+  followed: [ID]
+  userss: [Users] @manyToMany(relationName: "UsersFriends")
+}
