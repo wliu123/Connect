@@ -26,7 +26,6 @@ type UsersHangoutsMetaData = {
 
 export declare class Users {
   readonly id: string;
-  readonly username: string;
   readonly name?: string | null;
   readonly profile_picture?: string | null;
   readonly email: string;

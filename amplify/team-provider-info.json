@@ -16,6 +16,12 @@
         "connectf082a34f": {},
         "connect75041352": {},
         "connect": {}
+      },
+      "function": {
+        "connectAddUser": {
+          "deploymentBucketName": "amplify-connect-dev-212252-deployment",
+          "s3Key": "amplify-builds/connectAddUser-70473969656231547a34-build.zip"
+        }
       }
     }
   }

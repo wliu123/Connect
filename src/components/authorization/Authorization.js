@@ -1,34 +1,32 @@
 import { useState, useEffect } from "react"
-import {Authenticator, AmplifySignOut} from '@aws-amplify/ui-react'
-import {Auth} from 'aws-amplify'
+import {Authenticator, useAuthenticator, View} from '@aws-amplify/ui-react'
+import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
+import * as mutations from '../../graphql/mutations'
+import * as queries from '../../graphql/queries';
+import { useNavigate, useLocation } from 'react-router'
+
 const Authorization = () => {
-    // const [user, setUser] = useState(null)
+    const { route } = useAuthenticator((context) => [context.route]);
+    const location = useLocation();
+    const navigate = useNavigate();
+
+    let from = location.state?.from?.pathname || '/';
     
-    useEffect(()=>{
-        checkUser()
-        async function checkUser() {
-            const user = await Auth.currentAuthenticatedUser()
-            console.log({user})
+    useEffect(() => {
+        if (route === 'authenticated') {
+            navigate("/home");
         }
-    },[])
+    }, [route, navigate, from]);
 
-
-    // if (!user) return null
-
-    // console.log(user)
+    
+    
     return (
-        <Authenticator variation="modal">
-            {({signOut, user})=>(
-                <>
-                <h3>Username: {user.username}</h3>
-                <p>Email: {user.attributes.email}</p>
-                <button onClick={signOut}>Sign out</button>
-                </>
-            )
-            }
-            
-        </Authenticator>
+    <View className="auth-wrapper">
+      <Authenticator variation="modal">
+          
+      </Authenticator>
+    </View>
         
     )
     
