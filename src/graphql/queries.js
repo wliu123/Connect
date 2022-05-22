@@ -8,11 +8,28 @@ export const getUsers = /* GraphQL */ `
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -21,6 +38,7 @@ export const getUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -36,11 +54,19 @@ export const listUsers = /* GraphQL */ `
         name
         profile_picture
         email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
@@ -65,11 +91,19 @@ export const syncUsers = /* GraphQL */ `
         name
         profile_picture
         email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
@@ -82,19 +116,38 @@ export const getHangouts = /* GraphQL */ `
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -109,15 +162,34 @@ export const listHangouts = /* GraphQL */ `
         id
         title
         location
+        description
         created_by
         joined_by
+        joined
         date
         public
+        join_count
+        user {
+          id
+          name
+          profile_picture
+          email
+          bio
+          followersCount
+          followingCount
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
@@ -141,15 +213,34 @@ export const syncHangouts = /* GraphQL */ `
         id
         title
         location
+        description
         created_by
         joined_by
+        joined
         date
         public
+        join_count
+        user {
+          id
+          name
+          profile_picture
+          email
+          bio
+          followersCount
+          followingCount
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
@@ -160,17 +251,20 @@ export const getFriends = /* GraphQL */ `
   query GetFriends($id: ID!) {
     getFriends(id: $id) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -183,13 +277,20 @@ export const listFriends = /* GraphQL */ `
     listFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        follower
-        followed
+        following
+        followedBy
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
@@ -211,187 +312,20 @@ export const syncFriends = /* GraphQL */ `
     ) {
       items {
         id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUsersFriends = /* GraphQL */ `
-  query GetUsersFriends($id: ID!) {
-    getUsersFriends(id: $id) {
-      id
-      usersID
-      friendsID
-      users {
-        id
+        following
+        followedBy
         name
         profile_picture
         email
+        bio
+        followersCount
+        followingCount
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const listUsersFriends = /* GraphQL */ `
-  query ListUsersFriends(
-    $filter: ModelUsersFriendsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsersFriends(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        usersID
-        friendsID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUsersFriends = /* GraphQL */ `
-  query SyncUsersFriends(
-    $filter: ModelUsersFriendsFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsersFriends(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        usersID
-        friendsID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const getUsersHangouts = /* GraphQL */ `
-  query GetUsersHangouts($id: ID!) {
-    getUsersHangouts(id: $id) {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const listUsersHangouts = /* GraphQL */ `
-  query ListUsersHangouts(
-    $filter: ModelUsersHangoutsFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsersHangouts(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        usersID
-        hangoutsID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      nextToken
-      startedAt
-    }
-  }
-`;
-export const syncUsersHangouts = /* GraphQL */ `
-  query SyncUsersHangouts(
-    $filter: ModelUsersHangoutsFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncUsersHangouts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        usersID
-        hangoutsID
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
+        owner
       }
       nextToken
       startedAt

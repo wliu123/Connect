@@ -3,7 +3,7 @@
   "cognitoConfig": {
     "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "connec8e5e582b",
+    "resourceNameTruncated": "connec18b05a76",
     "userPoolName": "connect",
     "autoVerifiedAttributes": [
       "email"
@@ -14,16 +14,11 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Verification code: {####}",
-    "emailVerificationMessage": "Verification code: {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
     "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
-    "passwordPolicyCharacters": [
-      "Requires Lowercase",
-      "Requires Numbers",
-      "Requires Symbols",
-      "Requires Uppercase"
-    ],
+    "passwordPolicyCharacters": [],
     "requiredAttributes": [
       "email",
       "name"
@@ -33,9 +28,9 @@
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [],
     "userpoolClientReadAttributes": [],
-    "userpoolClientLambdaRole": "connec8e5e582b_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "connec18b05a76_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "8e5e582b",
+    "sharedId": "18b05a76",
     "resourceName": "connect",
     "authSelections": "identityPoolAndUserPool",
     "serviceName": "Cognito",
@@ -49,7 +44,7 @@
     "thirdPartyAuth": false,
     "authProviders": [],
     "hostedUI": true,
-    "hostedUIDomainName": "orshguumcpox",
+    "hostedUIDomainName": "connect047e7c71-047e7c71",
     "authProvidersUserPool": [
       "Google"
     ],

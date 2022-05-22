@@ -1,26 +1,52 @@
-type Users @model @auth(rules: [{allow: public}]) {
+type Users @model @auth(rules: [
+    {allow: private, operations: [read]},
+    {allow: owner}
+]) 
+{
   id: ID!
   name: String
   profile_picture: String
   email: String!
-  Friends: [Friends] @manyToMany(relationName: "UsersFriends")
-  Hangouts: [Hangouts] @manyToMany(relationName: "UsersHangouts")
+  bio: String
+  followersCount: Int
+  followingCount: Int
+  hangouts: [Hangouts] @hasMany(indexName: "byUser", fields: ["id"])
+  
 }
 
-type Hangouts @model @auth(rules: [{allow: public}]) {
+
+type Hangouts @model @auth(rules: [
+    {allow: private, operations: [read, update, delete]},
+    {allow: owner}
+]) 
+{
   id: ID!
   title: String!
   location: String!
-  created_by: String!
-  joined_by: [String]
+  description: String!
+  created_by: ID! @index(name: "byUser", sortKeyFields: ["date"])
+  joined_by: [ID]
+  joined: Boolean
   date: AWSDate!
   public: Boolean
-  userss: [Users] @manyToMany(relationName: "UsersHangouts")
+  join_count: Int
+  user: Users @belongsTo(fields: ["created_by"])
 }
 
-type Friends @model @auth(rules: [{allow: public}]) {
+type Friends @model @auth(rules: [
+    {allow: private, operations: [read]},
+    {allow: owner}
+]) 
+{
   id: ID!
-  follower: ID!
-  followed: [ID]
-  userss: [Users] @manyToMany(relationName: "UsersFriends")
+  following: Boolean!
+  followedBy: Boolean!
+  name: String
+  profile_picture: String
+  email: String!
+  bio: String
+  followersCount: Int
+  followingCount: Int
+  
 }
+ 

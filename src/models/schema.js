@@ -31,32 +31,39 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "Friends": {
-                    "name": "Friends",
-                    "isArray": true,
-                    "type": {
-                        "model": "UsersFriends"
-                    },
+                "bio": {
+                    "name": "bio",
+                    "isArray": false,
+                    "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "users"
-                    }
+                    "attributes": []
                 },
-                "Hangouts": {
-                    "name": "Hangouts",
+                "followersCount": {
+                    "name": "followersCount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "followingCount": {
+                    "name": "followingCount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "hangouts": {
+                    "name": "hangouts",
                     "isArray": true,
                     "type": {
-                        "model": "UsersHangouts"
+                        "model": "Hangouts"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "users"
+                        "associatedWith": "user"
                     }
                 },
                 "createdAt": {
@@ -88,88 +95,16 @@ export const schema = {
                     "properties": {
                         "rules": [
                             {
-                                "allow": "public",
+                                "allow": "private",
                                 "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
                                     "read"
                                 ]
-                            }
-                        ]
-                    }
-                }
-            ]
-        },
-        "Friends": {
-            "name": "Friends",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "follower": {
-                    "name": "follower",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "followed": {
-                    "name": "followed",
-                    "isArray": true,
-                    "type": "ID",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
-                },
-                "userss": {
-                    "name": "userss",
-                    "isArray": true,
-                    "type": {
-                        "model": "UsersFriends"
-                    },
-                    "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true,
-                    "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "friends"
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "Friends",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
+                            },
                             {
-                                "allow": "public",
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
                                 "operations": [
                                     "create",
                                     "update",
@@ -206,8 +141,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "created_by": {
-                    "name": "created_by",
+                "description": {
+                    "name": "description",
                     "isArray": false,
                     "type": "String",
                     "isRequired": true,
@@ -216,10 +151,17 @@ export const schema = {
                 "joined_by": {
                     "name": "joined_by",
                     "isArray": true,
-                    "type": "String",
+                    "type": "ID",
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
+                },
+                "joined": {
+                    "name": "joined",
+                    "isArray": false,
+                    "type": "Boolean",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "date": {
                     "name": "date",
@@ -235,18 +177,24 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "userss": {
-                    "name": "userss",
-                    "isArray": true,
+                "join_count": {
+                    "name": "join_count",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "user": {
+                    "name": "user",
+                    "isArray": false,
                     "type": {
-                        "model": "UsersHangouts"
+                        "model": "Users"
                     },
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "hangouts"
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "created_by"
                     }
                 },
                 "createdAt": {
@@ -274,11 +222,32 @@ export const schema = {
                     "properties": {}
                 },
                 {
+                    "type": "key",
+                    "properties": {
+                        "name": "byUser",
+                        "fields": [
+                            "created_by",
+                            "date"
+                        ]
+                    }
+                },
+                {
                     "type": "auth",
                     "properties": {
                         "rules": [
                             {
-                                "allow": "public",
+                                "allow": "private",
+                                "operations": [
+                                    "read",
+                                    "update",
+                                    "delete"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
                                 "operations": [
                                     "create",
                                     "update",
@@ -291,8 +260,8 @@ export const schema = {
                 }
             ]
         },
-        "UsersFriends": {
-            "name": "UsersFriends",
+        "Friends": {
+            "name": "Friends",
             "fields": {
                 "id": {
                     "name": "id",
@@ -301,31 +270,61 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "users": {
-                    "name": "users",
+                "following": {
+                    "name": "following",
                     "isArray": false,
-                    "type": {
-                        "model": "Users"
-                    },
+                    "type": "Boolean",
                     "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "usersID"
-                    }
+                    "attributes": []
                 },
-                "friends": {
-                    "name": "friends",
+                "followedBy": {
+                    "name": "followedBy",
                     "isArray": false,
-                    "type": {
-                        "model": "Friends"
-                    },
+                    "type": "Boolean",
                     "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "friendsID"
-                    }
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "profile_picture": {
+                    "name": "profile_picture",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "email": {
+                    "name": "email",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "bio": {
+                    "name": "bio",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "followersCount": {
+                    "name": "followersCount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "followingCount": {
+                    "name": "followingCount",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -345,107 +344,34 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "UsersFriends",
+            "pluralName": "Friends",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
                 },
                 {
-                    "type": "key",
+                    "type": "auth",
                     "properties": {
-                        "name": "byUsers",
-                        "fields": [
-                            "usersID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byFriends",
-                        "fields": [
-                            "friendsID"
-                        ]
-                    }
-                }
-            ]
-        },
-        "UsersHangouts": {
-            "name": "UsersHangouts",
-            "fields": {
-                "id": {
-                    "name": "id",
-                    "isArray": false,
-                    "type": "ID",
-                    "isRequired": true,
-                    "attributes": []
-                },
-                "users": {
-                    "name": "users",
-                    "isArray": false,
-                    "type": {
-                        "model": "Users"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "usersID"
-                    }
-                },
-                "hangouts": {
-                    "name": "hangouts",
-                    "isArray": false,
-                    "type": {
-                        "model": "Hangouts"
-                    },
-                    "isRequired": true,
-                    "attributes": [],
-                    "association": {
-                        "connectionType": "BELONGS_TO",
-                        "targetName": "hangoutsID"
-                    }
-                },
-                "createdAt": {
-                    "name": "createdAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                },
-                "updatedAt": {
-                    "name": "updatedAt",
-                    "isArray": false,
-                    "type": "AWSDateTime",
-                    "isRequired": false,
-                    "attributes": [],
-                    "isReadOnly": true
-                }
-            },
-            "syncable": true,
-            "pluralName": "UsersHangouts",
-            "attributes": [
-                {
-                    "type": "model",
-                    "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byUsers",
-                        "fields": [
-                            "usersID"
-                        ]
-                    }
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byHangouts",
-                        "fields": [
-                            "hangoutsID"
+                        "rules": [
+                            {
+                                "allow": "private",
+                                "operations": [
+                                    "read"
+                                ]
+                            },
+                            {
+                                "provider": "userPools",
+                                "ownerField": "owner",
+                                "allow": "owner",
+                                "identityClaim": "cognito:username",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
                         ]
                     }
                 }
@@ -454,5 +380,5 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "version": "0a680e2d653e40fa132f8fa8dbb38790"
+    "version": "be46d2abb0a457bdf8af356651cfa032"
 };

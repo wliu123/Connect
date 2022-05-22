@@ -11,11 +11,28 @@ export const createUsers = /* GraphQL */ `
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -24,6 +41,7 @@ export const createUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -37,11 +55,28 @@ export const updateUsers = /* GraphQL */ `
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -50,6 +85,7 @@ export const updateUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -63,11 +99,28 @@ export const deleteUsers = /* GraphQL */ `
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -76,6 +129,7 @@ export const deleteUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -88,19 +142,38 @@ export const createHangouts = /* GraphQL */ `
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -113,19 +186,38 @@ export const updateHangouts = /* GraphQL */ `
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -138,19 +230,38 @@ export const deleteHangouts = /* GraphQL */ `
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -161,17 +272,20 @@ export const createFriends = /* GraphQL */ `
   ) {
     createFriends(input: $input, condition: $condition) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -182,17 +296,20 @@ export const updateFriends = /* GraphQL */ `
   ) {
     updateFriends(input: $input, condition: $condition) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
@@ -203,257 +320,20 @@ export const deleteFriends = /* GraphQL */ `
   ) {
     deleteFriends(input: $input, condition: $condition) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-    }
-  }
-`;
-export const createUsersFriends = /* GraphQL */ `
-  mutation CreateUsersFriends(
-    $input: CreateUsersFriendsInput!
-    $condition: ModelUsersFriendsConditionInput
-  ) {
-    createUsersFriends(input: $input, condition: $condition) {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateUsersFriends = /* GraphQL */ `
-  mutation UpdateUsersFriends(
-    $input: UpdateUsersFriendsInput!
-    $condition: ModelUsersFriendsConditionInput
-  ) {
-    updateUsersFriends(input: $input, condition: $condition) {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteUsersFriends = /* GraphQL */ `
-  mutation DeleteUsersFriends(
-    $input: DeleteUsersFriendsInput!
-    $condition: ModelUsersFriendsConditionInput
-  ) {
-    deleteUsersFriends(input: $input, condition: $condition) {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const createUsersHangouts = /* GraphQL */ `
-  mutation CreateUsersHangouts(
-    $input: CreateUsersHangoutsInput!
-    $condition: ModelUsersHangoutsConditionInput
-  ) {
-    createUsersHangouts(input: $input, condition: $condition) {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const updateUsersHangouts = /* GraphQL */ `
-  mutation UpdateUsersHangouts(
-    $input: UpdateUsersHangoutsInput!
-    $condition: ModelUsersHangoutsConditionInput
-  ) {
-    updateUsersHangouts(input: $input, condition: $condition) {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const deleteUsersHangouts = /* GraphQL */ `
-  mutation DeleteUsersHangouts(
-    $input: DeleteUsersHangoutsInput!
-    $condition: ModelUsersHangoutsConditionInput
-  ) {
-    deleteUsersHangouts(input: $input, condition: $condition) {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+      owner
     }
   }
 `;

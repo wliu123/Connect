@@ -51,12 +51,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "connectAddUser",
+            "addConnectUser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "connectAddUser",
+                  "addConnectUser",
                   "-",
                   {
                     "Ref": "env"
@@ -122,12 +122,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "connectLambdaRole06d5059b",
+            "connectLambdaRolecfec8590",
             {
               "Fn::Join": [
                 "",
                 [
-                  "connectLambdaRole06d5059b",
+                  "connectLambdaRolecfec8590",
                   "-",
                   {
                     "Ref": "env"

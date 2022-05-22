@@ -20,7 +20,7 @@ export type AmplifyDependentResourcesAttributes = {
         }
     },
     "function": {
-        "connectAddUser": {
+        "addConnectUser": {
             "Name": "string",
             "Arn": "string",
             "Region": "string",

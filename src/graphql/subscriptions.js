@@ -2,17 +2,34 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUsers = /* GraphQL */ `
-  subscription OnCreateUsers {
-    onCreateUsers {
+  subscription OnCreateUsers($owner: String) {
+    onCreateUsers(owner: $owner) {
       id
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -21,21 +38,39 @@ export const onCreateUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onUpdateUsers = /* GraphQL */ `
-  subscription OnUpdateUsers {
-    onUpdateUsers {
+  subscription OnUpdateUsers($owner: String) {
+    onUpdateUsers(owner: $owner) {
       id
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -44,21 +79,39 @@ export const onUpdateUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onDeleteUsers = /* GraphQL */ `
-  subscription OnDeleteUsers {
-    onDeleteUsers {
+  subscription OnDeleteUsers($owner: String) {
+    onDeleteUsers(owner: $owner) {
       id
       name
       profile_picture
       email
-      Friends {
-        nextToken
-        startedAt
-      }
-      Hangouts {
+      bio
+      followersCount
+      followingCount
+      hangouts {
+        items {
+          id
+          title
+          location
+          description
+          created_by
+          joined_by
+          joined
+          date
+          public
+          join_count
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+          owner
+        }
         nextToken
         startedAt
       }
@@ -67,348 +120,193 @@ export const onDeleteUsers = /* GraphQL */ `
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onCreateHangouts = /* GraphQL */ `
-  subscription OnCreateHangouts {
-    onCreateHangouts {
+  subscription OnCreateHangouts($owner: String) {
+    onCreateHangouts(owner: $owner) {
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onUpdateHangouts = /* GraphQL */ `
-  subscription OnUpdateHangouts {
-    onUpdateHangouts {
+  subscription OnUpdateHangouts($owner: String) {
+    onUpdateHangouts(owner: $owner) {
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onDeleteHangouts = /* GraphQL */ `
-  subscription OnDeleteHangouts {
-    onDeleteHangouts {
+  subscription OnDeleteHangouts($owner: String) {
+    onDeleteHangouts(owner: $owner) {
       id
       title
       location
+      description
       created_by
       joined_by
+      joined
       date
       public
-      userss {
-        nextToken
-        startedAt
+      join_count
+      user {
+        id
+        name
+        profile_picture
+        email
+        bio
+        followersCount
+        followingCount
+        hangouts {
+          nextToken
+          startedAt
+        }
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+        owner
       }
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onCreateFriends = /* GraphQL */ `
-  subscription OnCreateFriends {
-    onCreateFriends {
+  subscription OnCreateFriends($owner: String) {
+    onCreateFriends(owner: $owner) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onUpdateFriends = /* GraphQL */ `
-  subscription OnUpdateFriends {
-    onUpdateFriends {
+  subscription OnUpdateFriends($owner: String) {
+    onUpdateFriends(owner: $owner) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
 export const onDeleteFriends = /* GraphQL */ `
-  subscription OnDeleteFriends {
-    onDeleteFriends {
+  subscription OnDeleteFriends($owner: String) {
+    onDeleteFriends(owner: $owner) {
       id
-      follower
-      followed
-      userss {
-        nextToken
-        startedAt
-      }
+      following
+      followedBy
+      name
+      profile_picture
+      email
+      bio
+      followersCount
+      followingCount
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
-    }
-  }
-`;
-export const onCreateUsersFriends = /* GraphQL */ `
-  subscription OnCreateUsersFriends {
-    onCreateUsersFriends {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateUsersFriends = /* GraphQL */ `
-  subscription OnUpdateUsersFriends {
-    onUpdateUsersFriends {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteUsersFriends = /* GraphQL */ `
-  subscription OnDeleteUsersFriends {
-    onDeleteUsersFriends {
-      id
-      usersID
-      friendsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      friends {
-        id
-        follower
-        followed
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onCreateUsersHangouts = /* GraphQL */ `
-  subscription OnCreateUsersHangouts {
-    onCreateUsersHangouts {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onUpdateUsersHangouts = /* GraphQL */ `
-  subscription OnUpdateUsersHangouts {
-    onUpdateUsersHangouts {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
-    }
-  }
-`;
-export const onDeleteUsersHangouts = /* GraphQL */ `
-  subscription OnDeleteUsersHangouts {
-    onDeleteUsersHangouts {
-      id
-      usersID
-      hangoutsID
-      users {
-        id
-        name
-        profile_picture
-        email
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      hangouts {
-        id
-        title
-        location
-        created_by
-        joined_by
-        date
-        public
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-      }
-      createdAt
-      updatedAt
-      _version
-      _deleted
-      _lastChangedAt
+      owner
     }
   }
 `;
