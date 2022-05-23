@@ -6,9 +6,24 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import CommentIcon from '@mui/icons-material/Comment';
+import Box from '@mui/material/Box';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 
-const Friends = () => {
-    
+const Friends = ({friendsList}) => {
+  
+  // MUI open menu box begin//
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+  // MUI open menu box end//
+
     return (
         <List 
             dense 
@@ -23,11 +38,11 @@ const Friends = () => {
                 borderRadius:1,
             }}
         >
-        {[0, 1, 2, 3].map((value) => {
-          const labelId = `checkbox-list-secondary-label-${value}`;
+        {friendsList.map((friend) => {
+          
           return (
             <ListItem
-              key={value}
+              key={friend.name}
               secondaryAction={
                 <IconButton edge="end" aria-label="comments">
                     <CommentIcon />
@@ -35,16 +50,39 @@ const Friends = () => {
               }
               disablePadding
             >
-              <ListItemButton>
-                <ListItemAvatar>
-                  <Avatar
-                    alt="pics"
-                    src="https://picsum.photos/id/101/367/267"
-                  />
-                </ListItemAvatar>
-                <ListItemText id={labelId} primary="each friend" />
-              </ListItemButton>
+              <Box sx={{ flexGrow: 0 }}>
+                <ListItemButton onClick={handleOpenUserMenu}>
+                  <ListItemAvatar>
+                    <Avatar
+                      alt="pics"
+                      src={friend.profile_picture}
+                    />
+                  </ListItemAvatar>
+                  <ListItemText primary={friend.name} />
+                </ListItemButton>
+                    <Menu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                      >
+                      <MenuItem onClick={handleCloseUserMenu}>
+                        <Typography textAlign="center">View Profile</Typography>
+                      </MenuItem>
+                  </Menu>
+              </Box>
             </ListItem>
+            
           );
         })}
       </List>

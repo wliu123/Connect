@@ -21,21 +21,31 @@ const Navbar = ({currentUser, setCurrentUser}) => {
     const [anchorElUser, setAnchorElUser] = useState(null);
     const pages = ["test", "test1"]
     const navigate = useNavigate()
-    const settings = [<div>Profile</div>, <div>Account</div>]
     const {user, signOut} = useAuthenticator((context) => [
       context.user,
       context.signOut
     ])
+    const settings = [
+      <div>Profile</div>, 
+      <div>Account</div>, 
+      <div onClick={() => {
+        signOut()
+        navigate('/')
+      }}
+      >
+        Logout
+      </div>
+    ]
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
       };
-    const handleOpenUserMenu = (event) => {
-        setAnchorElUser(event.currentTarget);
-      };
+      const handleCloseNavMenu = () => {
+          setAnchorElNav(null);
+        };
     
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
+        const handleOpenUserMenu = (event) => {
+        setAnchorElUser(event.currentTarget);
       };
     
     const handleCloseUserMenu = () => {
@@ -145,15 +155,7 @@ const Navbar = ({currentUser, setCurrentUser}) => {
                         Login
                       </Button>
                       :
-                      <Button
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                      onClick={() => {
-                        signOut()
-                        navigate('/')
-                      }}
-                      >
-                        Logout
-                      </Button>
+                     null
                   }
                 </Box>
                 {user ? displayLogged : null}

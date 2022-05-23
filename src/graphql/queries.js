@@ -25,19 +25,12 @@ export const getUsers = /* GraphQL */ `
           join_count
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -59,32 +52,29 @@ export const listUsers = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       nextToken
-      startedAt
     }
   }
 `;
-export const syncUsers = /* GraphQL */ `
-  query SyncUsers(
+export const idByEmail = /* GraphQL */ `
+  query IdByEmail(
+    $email: String!
+    $sortDirection: ModelSortDirection
     $filter: ModelUsersFilterInput
     $limit: Int
     $nextToken: String
-    $lastSync: AWSTimestamp
   ) {
-    syncUsers(
+    idByEmail(
+      email: $email
+      sortDirection: $sortDirection
       filter: $filter
       limit: $limit
       nextToken: $nextToken
-      lastSync: $lastSync
     ) {
       items {
         id
@@ -96,17 +86,12 @@ export const syncUsers = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       nextToken
-      startedAt
     }
   }
 `;
@@ -133,20 +118,13 @@ export const getHangouts = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -179,71 +157,13 @@ export const listHangouts = /* GraphQL */ `
           followingCount
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncHangouts = /* GraphQL */ `
-  query SyncHangouts(
-    $filter: ModelHangoutsFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncHangouts(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        title
-        location
-        description
-        created_by
-        joined_by
-        joined
-        date
-        public
-        join_count
-        user {
-          id
-          name
-          profile_picture
-          email
-          bio
-          followersCount
-          followingCount
-          createdAt
-          updatedAt
-          _version
-          _deleted
-          _lastChangedAt
-          owner
-        }
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;
@@ -261,9 +181,6 @@ export const getFriends = /* GraphQL */ `
       followingCount
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -287,48 +204,9 @@ export const listFriends = /* GraphQL */ `
         followingCount
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       nextToken
-      startedAt
-    }
-  }
-`;
-export const syncFriends = /* GraphQL */ `
-  query SyncFriends(
-    $filter: ModelFriendsFilterInput
-    $limit: Int
-    $nextToken: String
-    $lastSync: AWSTimestamp
-  ) {
-    syncFriends(
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-      lastSync: $lastSync
-    ) {
-      items {
-        id
-        following
-        followedBy
-        name
-        profile_picture
-        email
-        bio
-        followersCount
-        followingCount
-        createdAt
-        updatedAt
-        _version
-        _deleted
-        _lastChangedAt
-        owner
-      }
-      nextToken
-      startedAt
     }
   }
 `;

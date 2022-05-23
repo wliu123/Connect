@@ -2,7 +2,7 @@
   "AppSyncApiName": "connect",
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
-  "AuthModeLastUpdated": "2022-05-22T01:44:55.306Z",
+  "AuthModeLastUpdated": "2022-05-22T22:42:04.117Z",
   "AuthCognitoUserPoolId": {
     "Fn::GetAtt": [
       "authconnect",

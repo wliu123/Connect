@@ -25,19 +25,12 @@ export const onCreateUsers = /* GraphQL */ `
           join_count
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -66,19 +59,12 @@ export const onUpdateUsers = /* GraphQL */ `
           join_count
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -107,19 +93,12 @@ export const onDeleteUsers = /* GraphQL */ `
           join_count
           createdAt
           updatedAt
-          _version
-          _deleted
-          _lastChangedAt
           owner
         }
         nextToken
-        startedAt
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -147,20 +126,13 @@ export const onCreateHangouts = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -188,20 +160,13 @@ export const onUpdateHangouts = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -229,20 +194,13 @@ export const onDeleteHangouts = /* GraphQL */ `
         followingCount
         hangouts {
           nextToken
-          startedAt
         }
         createdAt
         updatedAt
-        _version
-        _deleted
-        _lastChangedAt
         owner
       }
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -261,9 +219,6 @@ export const onCreateFriends = /* GraphQL */ `
       followingCount
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -282,9 +237,6 @@ export const onUpdateFriends = /* GraphQL */ `
       followingCount
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }
@@ -303,9 +255,6 @@ export const onDeleteFriends = /* GraphQL */ `
       followingCount
       createdAt
       updatedAt
-      _version
-      _deleted
-      _lastChangedAt
       owner
     }
   }

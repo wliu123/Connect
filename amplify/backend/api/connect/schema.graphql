@@ -1,12 +1,13 @@
 type Users @model @auth(rules: [
     {allow: private, operations: [read]},
+    {allow: public},
     {allow: owner}
 ]) 
 {
   id: ID!
   name: String
   profile_picture: String
-  email: String!
+  email: String! @index(name: "byEmail", queryField: "idByEmail")
   bio: String
   followersCount: Int
   followingCount: Int
@@ -17,6 +18,7 @@ type Users @model @auth(rules: [
 
 type Hangouts @model @auth(rules: [
     {allow: private, operations: [read, update, delete]},
+    {allow: public},
     {allow: owner}
 ]) 
 {
@@ -35,6 +37,7 @@ type Hangouts @model @auth(rules: [
 
 type Friends @model @auth(rules: [
     {allow: private, operations: [read]},
+    {allow: public},
     {allow: owner}
 ]) 
 {

@@ -1,22 +1,20 @@
-import {Hub, Auth, API} from 'aws-amplify'
+import {Hub, Auth, API, graphqlOperation} from 'aws-amplify'
 import * as mutations from '../../graphql/mutations'
 import * as queries from '../../graphql/queries';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import { styled } from '@mui/material/styles';
-import isWeekend from 'date-fns/isWeekend';
-import TextField from '@mui/material/TextField';
 import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import AttendingEvents from './AttendingEvents';
 import Typography from '@mui/material/Typography';
 import Friends from './Friends';
 import Groups from './Groups';
+import SuggestUsers from './SuggestUsers';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -28,72 +26,61 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Home = () => {
     const [value,setValue] = useState(new Date())
-   
-        // useEffect(()=>{
-      
-    //     Hub.listen('auth', (data) => {
-    //         switch (data.payload.event) {
-    //             case 'signIn':
-    //                 console.log('user signed in');
-    //                 // createUser()
-    //                 break;
-    //             case 'signUp':
-    //                 console.log('user is signing up')
-    //                 break;
-    //             case 'signOut':
-    //                 console.log('user signed out');
-    //                     break;
-    //             case 'signIn_failure':
-    //                 console.log('user sign in failed');
-    //         }
-    //     })
-        
-              
-        
-    // },[])
+    const [currentUser, setCurrentUser] = useState(null)
+    const [suggestedUsers, setSuggestedUsers] = useState([])
+    const [friendsList, setFriendsList] = useState([])
+    const [emails,setEmail] = useState([])
+  
+    useEffect(() => {
+        getCurrentUser()
+    },[])
 
-    // async function createUser() {
-    //     const user = await Auth.currentAuthenticatedUser()
-    //     createdUser(user)
-    // }
-    // async function createdUser(user) {
+    async function getCurrentUser() {
+        const user = await Auth.currentAuthenticatedUser() 
+        listUsers(user.attributes.email)
+        listFriends()
+        setCurrentUser(user)
+    }
 
-    //     await API.graphql({
-    //         query: mutations.createUsers,
-    //         variables: {
-    //             input: {
-    //                 email: user.attributes.email,
-    //                 name: user.attributes.name
-    //             }
-    //         }
-    //     })
-    // }
+    async function listUsers(email) {
+        let filter = {
+            email: {
+                notContains: email
+            }
+        }
+        const listAll = await API.graphql({
+            query: queries.listUsers,
+            variables: {filter: filter}
+        })
+        const res = await listAll.data.listUsers.items
+        setSuggestedUsers(res)
+       
+    }
 
-    // async function checkUser() {
-    //     const user = await Auth.currentAuthenticatedUser()
-    //     console.log({user})
-
-    //     // mutation MyMutation {
-    //     //     createUsers(input: {email: "williamliu626@gmail.com", name: "William Liu", profile_picture: "https://picsum.photos/id/10/367/267"}) {
-    //     //       id
-    //     //       email
-    //     //       name
-    //     //       profile_picture
-    //     //     }
-    //     //   }
-          
-    // }
-
-    // query MyQuery {
-    //     listUsers {
-    //       items {
-    //         email
-    //         id
-    //         name
-    //         profile_picture
-    //       }
-    //     }
-    //   }
+    async function listFriends() {
+        const listFriends = await API.graphql({
+            query: queries.listFriends,
+            authMode: "AMAZON_COGNITO_USER_POOLS"
+        })
+        setFriendsList(listFriends.data.listFriends.items)
+    }
+    
+    async function followFriend(user) {
+        const friendDetail = {
+            email: user.email,
+            followedBy: false,
+            following: true,
+            name: user.name,
+            profile_picture: user.profile_picture
+        }
+        await API.graphql({
+            query: mutations.createFriends,
+            variables: {
+                input: friendDetail
+            }
+        })
+    }
+    
     
     return (
         
@@ -101,7 +88,7 @@ const Home = () => {
     <Box sx={{ flexGrow: 1, px: 10, mt: 2 }}>
         
         <Grid container spacing={2} columns={12}>
-          <Grid item xs={3} md={3} lg={4}>
+          <Grid item xs={3} md={3} lg={3}>
             <Box
             sx={{
                 display: 'flex',
@@ -123,7 +110,7 @@ const Home = () => {
                         }}
                     />
                 </LocalizationProvider>
-                </Box>
+               
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Upcoming Events
                 </Typography>
@@ -131,15 +118,21 @@ const Home = () => {
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Friends
                 </Typography>
-                        <Friends />
+                        <Friends friendsList={friendsList}/>
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Groups
                 </Typography>
                         <Groups />
-         
+            </Box>
           </Grid>
-          <Grid item xs={9} md={9} lg={8}>
+          <Grid item xs={9} md={9} lg={6}>
             <Item>xs=6</Item>
+          </Grid>
+          <Grid item xs={9} md={9} lg={3}>
+            <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                Suggested Users
+            </Typography>
+            <SuggestUsers friendsList={friendsList} followFriend={followFriend} suggestedUsers={suggestedUsers}/>
           </Grid>
         </Grid>
     </Box>

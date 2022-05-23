@@ -2,8 +2,6 @@ import { useState, useEffect } from "react"
 import {Authenticator, useAuthenticator, View} from '@aws-amplify/ui-react'
 import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
-import * as mutations from '../../graphql/mutations'
-import * as queries from '../../graphql/queries';
 import { useNavigate, useLocation } from 'react-router'
 
 const Authorization = () => {

@@ -8,6 +8,7 @@ import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import Authorization from "./components/authorization/Authorization";
 import {Hub, Auth, API} from 'aws-amplify'
 
+
 export function RequireAuth({ children }) {
   const location = useLocation();
   const { route } = useAuthenticator((context) => [context.route]);
@@ -21,40 +22,6 @@ function App() {
   
   const [currentUser, setCurrentUser] = useState(null)
   
-
-  // const loggedDisplay = (
-  //   <>
-  //   <Route path="/home" element={<Home />} />
-  //   </>
-  // )
-
-  // const notLoggedDisplay = (
-  //   <>
-  //   <Route path="/" element={<Landing />} />
-  //   </>
-  // )
-
-   useEffect(()=>{
-      
-        Hub.listen('auth', (data) => {
-            switch (data.payload.event) {
-                case 'authenticated':
-                    console.log('user authenticated')
-                    break;
-                case 'signIn':
-                    console.log('user signed in');
-                    break;
-                case 'signUp':
-                    console.log('user is signing up')
-                    break;
-                case 'signOut':
-                    console.log('user signed out');
-                        break;
-                case 'signIn_failure':
-                    console.log('user sign in failed');
-            }
-        })
-  },[])
   
 
   return (
