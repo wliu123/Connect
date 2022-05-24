@@ -9,7 +9,6 @@ import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useState, useEffect } from 'react';
-import Toolbar from '@mui/material/Toolbar';
 import AttendingEvents from './AttendingEvents';
 import Typography from '@mui/material/Typography';
 import Friends from './Friends';
@@ -29,7 +28,6 @@ const Home = () => {
     const [currentUser, setCurrentUser] = useState(null)
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
-    const [emails,setEmail] = useState([])
   
     useEffect(() => {
         getCurrentUser()

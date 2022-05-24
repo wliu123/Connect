@@ -155,7 +155,20 @@ const Navbar = ({currentUser, setCurrentUser}) => {
                         Login
                       </Button>
                       :
-                     null
+                      <>
+                      <Button
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      onClick={() => navigate("/search_spots")}
+                      >
+                        Explore
+                      </Button>
+                      <Button
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      onClick={() => navigate("/home")}
+                      >
+                        Dashboard
+                      </Button>
+                      </>
                   }
                 </Box>
                 {user ? displayLogged : null}

@@ -7,6 +7,7 @@ import Home from "./components/home/Home";
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import Authorization from "./components/authorization/Authorization";
 import {Hub, Auth, API} from 'aws-amplify'
+import SearchSpots from "./components/search_spots/SearchSpots";
 
 
 export function RequireAuth({ children }) {
@@ -22,6 +23,9 @@ function App() {
   
   const [currentUser, setCurrentUser] = useState(null)
   
+  function createHangout(address) {
+    console.log(address)
+  }
   
 
   return (
@@ -41,6 +45,7 @@ function App() {
             </RequireAuth>
           } 
         />
+        <Route path="/search_spots" element={<SearchSpots createHangout={createHangout}/>} />
       </Routes>
       </Authenticator.Provider>
     
