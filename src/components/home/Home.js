@@ -14,6 +14,7 @@ import Typography from '@mui/material/Typography';
 import Friends from './Friends';
 import Groups from './Groups';
 import SuggestUsers from './SuggestUsers';
+import ListHangouts from './ListHangouts';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -23,11 +24,12 @@ const Item = styled(Paper)(({ theme }) => ({
     color: theme.palette.text.secondary,
   }));
 
-const Home = () => {
+const Home = ({setCurrentUser}) => {
     const [value,setValue] = useState(new Date())
-    const [currentUser, setCurrentUser] = useState(null)
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
+    const [listHangoutsByDate, setListHangoutsByDate] = useState([])
+    
   
     useEffect(() => {
         getCurrentUser()
@@ -80,6 +82,7 @@ const Home = () => {
     }
     
     
+    
     return (
         
 
@@ -124,7 +127,7 @@ const Home = () => {
             </Box>
           </Grid>
           <Grid item xs={9} md={9} lg={6}>
-            <Item>xs=6</Item>
+            <ListHangouts value={value} listHangoutsByDate={listHangoutsByDate} setListHangoutsByDate={setListHangoutsByDate}/>
           </Grid>
           <Grid item xs={9} md={9} lg={3}>
             <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">

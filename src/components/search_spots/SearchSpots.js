@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const libraries = ["places"]
-const SearchSpots = ({ createHangout }) => {
+const SearchSpots = ({currentUser}) => {
     
     const [selected, setSelected] = useState(null)
     const [center, setCenter] = useState({lat: 40.70705345683868, lng: -74.01128952515276})
@@ -34,7 +34,7 @@ const SearchSpots = ({ createHangout }) => {
     return (
         <Box sx={{  mt: 1 }}>
           
-            {!searchLoc.length>0 ? null : <Sidebar createHangout={createHangout} searchLoc={searchLoc} selected={selected}/>}      
+            {!searchLoc.length>0 ? null : <Sidebar setSearchLoc={setSearchLoc} currentUser={currentUser} searchLoc={searchLoc} selected={selected}/>}      
                 
             {!isLoaded ? <div>Loading...</div> : <Maps setSearchLoc={setSearchLoc} setCenter={setCenter} setSelected={setSelected} center={center} selected={selected}/>}
                 

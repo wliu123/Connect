@@ -10,6 +10,7 @@ import {Hub, Auth, API} from 'aws-amplify'
 import SearchSpots from "./components/search_spots/SearchSpots";
 
 
+
 export function RequireAuth({ children }) {
   const location = useLocation();
   const { route } = useAuthenticator((context) => [context.route]);
@@ -23,15 +24,13 @@ function App() {
   
   const [currentUser, setCurrentUser] = useState(null)
   
-  function createHangout(address) {
-    console.log(address)
-  }
+  
   
 
   return (
     
       <Authenticator.Provider>
-      <Navbar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+      <Navbar currentUser={currentUser} />
       <Routes>
         <Route path="/" element={<Landing />} />
         
@@ -41,11 +40,11 @@ function App() {
           element={
             <RequireAuth>
 
-              <Home />
+              <Home setCurrentUser={setCurrentUser}/>
             </RequireAuth>
           } 
         />
-        <Route path="/search_spots" element={<SearchSpots createHangout={createHangout}/>} />
+        <Route path="/search_spots" element={<SearchSpots currentUser={currentUser}/>} />
       </Routes>
       </Authenticator.Provider>
     

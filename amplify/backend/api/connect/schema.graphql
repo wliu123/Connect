@@ -11,7 +11,7 @@ type Users @model @auth(rules: [
   bio: String
   followersCount: Int
   followingCount: Int
-  hangouts: [Hangouts] @hasMany(indexName: "byUser", fields: ["id"])
+  
   
 }
 
@@ -26,13 +26,13 @@ type Hangouts @model @auth(rules: [
   title: String!
   location: String!
   description: String!
-  created_by: ID! @index(name: "byUser", sortKeyFields: ["date"])
+  created_by: ID! 
   joined_by: [ID]
   joined: Boolean
-  date: AWSDate!
+  date: String! @index(name: "byDate", queryField: "hangoutsByDate")
   public: Boolean
   join_count: Int
-  user: Users @belongsTo(fields: ["created_by"])
+  
 }
 
 type Friends @model @auth(rules: [

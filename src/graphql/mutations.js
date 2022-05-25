@@ -14,24 +14,6 @@ export const createUsers = /* GraphQL */ `
       bio
       followersCount
       followingCount
-      hangouts {
-        items {
-          id
-          title
-          location
-          description
-          created_by
-          joined_by
-          joined
-          date
-          public
-          join_count
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -51,24 +33,6 @@ export const updateUsers = /* GraphQL */ `
       bio
       followersCount
       followingCount
-      hangouts {
-        items {
-          id
-          title
-          location
-          description
-          created_by
-          joined_by
-          joined
-          date
-          public
-          join_count
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -88,24 +52,6 @@ export const deleteUsers = /* GraphQL */ `
       bio
       followersCount
       followingCount
-      hangouts {
-        items {
-          id
-          title
-          location
-          description
-          created_by
-          joined_by
-          joined
-          date
-          public
-          join_count
-          createdAt
-          updatedAt
-          owner
-        }
-        nextToken
-      }
       createdAt
       updatedAt
       owner
@@ -128,21 +74,6 @@ export const createHangouts = /* GraphQL */ `
       date
       public
       join_count
-      user {
-        id
-        name
-        profile_picture
-        email
-        bio
-        followersCount
-        followingCount
-        hangouts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       updatedAt
       owner
@@ -165,21 +96,6 @@ export const updateHangouts = /* GraphQL */ `
       date
       public
       join_count
-      user {
-        id
-        name
-        profile_picture
-        email
-        bio
-        followersCount
-        followingCount
-        hangouts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       updatedAt
       owner
@@ -202,21 +118,6 @@ export const deleteHangouts = /* GraphQL */ `
       date
       public
       join_count
-      user {
-        id
-        name
-        profile_picture
-        email
-        bio
-        followersCount
-        followingCount
-        hangouts {
-          nextToken
-        }
-        createdAt
-        updatedAt
-        owner
-      }
       createdAt
       updatedAt
       owner

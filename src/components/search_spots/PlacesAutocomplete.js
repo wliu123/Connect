@@ -11,7 +11,9 @@ const PlacesAutocomplete = ({setSearchLoc, setCenter, setSelected}) => {
         setValue,
         suggestions: {status, data},
         clearSuggestions,
-    } = usePlacesAutocomplete()
+    } = usePlacesAutocomplete({
+        debounce:500
+    })
 
     const handleSelect = async (address) => {
         

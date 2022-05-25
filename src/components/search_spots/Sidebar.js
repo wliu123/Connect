@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ImageList from '@mui/material/ImageList';
@@ -9,19 +10,41 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Button from '@mui/material/Button';
 import SendIcon from '@mui/icons-material/Send';
+import { useState } from 'react';
+import HangoutForm from './HangoutForm';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
 
+const Sidebar = ({ setSearchLoc, searchLoc, currentUser }) => {
 
-const Sidebar = ({searchLoc, createHangout}) => {
-
-   
+   const [open, setOpen] = useState(false)
+   const [snackBar, setSnackBar] = useState(false)
+   const [selectAddress, setSelectAddress] = useState("")
     
   console.log(searchLoc)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setSnackBar(false);
+  };
   
     return (
+        <>
+        {open 
+            ?
+            
+            null
 
+            :
 
-                <Box
+            <Box
                 sx={{
                     display: 'flex',
                     alignItems: 'flex-start',
@@ -34,60 +57,72 @@ const Sidebar = ({searchLoc, createHangout}) => {
                     zIndex: 'tooltip',
                     height: '93vh'
                 }}
-                >
-                        <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                            
-                            {searchLoc[0].photos.map((photo) => {
-                                
-                                const photoUrl = photo.getUrl()
-                                return (
-                                   
-                                    <ImageListItem key={photoUrl}>
-                                    <img
-                                        src={`${photoUrl}?w=164&h=164&fit=crop&auto=format`}
-                                        srcSet={`${photoUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                        alt="photo from google"
-                                        loading="lazy"
-                                    />
-                                    </ImageListItem>
-                                )
-                            }
-                            
-                            )}
-                        </ImageList>
-                        <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                            {searchLoc[0].name}
-                        </Typography>
-                        <List>
-                            <ListItem>
-                                <ListItemText primary={searchLoc[0].formatted_address} />
-                            </ListItem>
-                        <Divider />
-                            <ListItem>
-                                <Button onClick={()=> createHangout(searchLoc[0].formatted_address)} sx={{px:10}}variant="outlined" endIcon={<SendIcon />}>
-                                    Create Hangout
-                                </Button>
-                            </ListItem>
-                        <Divider />
-                            <ListItem>
-                                <ListItemText primary={searchLoc[0].opening_hours.weekday_text.map((hours)=> {
-                                        return (
-                                            <ul>
-                                                <li>{hours}</li>
-                                            </ul>
-                                        )
-                                    })
-                                } />
-                            </ListItem>
-                        </List>
+            >
+                <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+                    
+                    {searchLoc[0].photos.map((photo) => {
                         
-                            {searchLoc[0].reviews.map((review) => {
+                        const photoUrl = photo.getUrl()
+                        return (
+                            
+                            <ImageListItem key={photoUrl}>
+                            <img
+                                src={`${photoUrl}?w=164&h=164&fit=crop&auto=format`}
+                                srcSet={`${photoUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                alt="photo from google"
+                                loading="lazy"
+                            />
+                            </ImageListItem>
+                        )
+                    }
+                    
+                    )}
+                </ImageList>
+                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                    {searchLoc[0].name}
+                </Typography>
+                <List>
+                    <ListItem>
+                        <ListItemText primary={searchLoc[0].formatted_address} />
+                    </ListItem>
+                <Divider />
+                    <ListItem>
+                        <Button onClick={() => {
+                                setOpen(true)
+                                setSelectAddress(searchLoc[0].formatted_address)
+                            }} 
+                            sx={{px:10}}variant="outlined" endIcon={<SendIcon />}
+                        >
+                            Create Hangout
+                        </Button>
+                    </ListItem>
+                <Divider />
+                    <ListItem>
+                        <ListItemText primary={searchLoc[0].opening_hours.weekday_text.map((hours)=> {
                                 return (
-                                    <Reviews review={review} />
+                                    <ul>
+                                        <li>{hours}</li>
+                                    </ul>
                                 )
-                            })}
-                        
-                </Box>
+                            })
+                        } />
+                    </ListItem>
+                </List>
+                
+                {searchLoc[0].reviews.map((review) => {
+                    return (
+                        <Reviews review={review} />
+                    )
+                })}
+            </Box>
+        }
+            {open ? <HangoutForm setSearchLoc={setSearchLoc} setSnackBar={setSnackBar} currentUser={currentUser} selectAddress={selectAddress} setOpen={setOpen} open={open}/> : null}   
+            <Snackbar open={snackBar} autoHideDuration={6000} onClose={handleClose}>
+                <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                Hangout created successfully!
+                </Alert>
+            </Snackbar>         
+        </>
        
     )
     

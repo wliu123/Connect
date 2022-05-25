@@ -16,7 +16,7 @@ import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react'
 import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 
-const Navbar = ({currentUser, setCurrentUser}) => {
+const Navbar = ({currentUser}) => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
     const pages = ["test", "test1"]
