@@ -2,12 +2,6 @@ import { useEffect, useState } from "react"
 import {API} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import ListSubheader from '@mui/material/ListSubheader';
-import ListItem from '@mui/material/ListItem';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
 import EachHangout from "./EachHangout";
 
 
@@ -32,7 +26,7 @@ const HangoutDate = ({eachDate}) => {
             hangoutItems
         ])
     }
-    console.log(listHangoutsByDate)
+
     return (
    
        <>
@@ -45,14 +39,11 @@ const HangoutDate = ({eachDate}) => {
            <>
            
                {listHangoutsByDate[0].map((hangout) => {
-                   console.log(hangout)
-                   if (hangout === null) {
-                       return <div> no event </div>
-                   } else {
+                   
                        return (
                            <EachHangout hangout={hangout}/>
                        )
-                   }
+                   
                })}
            
            </>

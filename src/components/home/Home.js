@@ -1,10 +1,8 @@
-import {Hub, Auth, API, graphqlOperation} from 'aws-amplify'
+import {Auth, API} from 'aws-amplify'
 import * as mutations from '../../graphql/mutations'
 import * as queries from '../../graphql/queries';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
-import { styled } from '@mui/material/styles';
 import { CalendarPicker } from '@mui/x-date-pickers/CalendarPicker';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -16,19 +14,12 @@ import Groups from './Groups';
 import SuggestUsers from './SuggestUsers';
 import ListHangouts from './ListHangouts';
 
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  }));
-
 const Home = ({setCurrentUser}) => {
     const [value,setValue] = useState(new Date())
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
-    const [listHangoutsByDate, setListHangoutsByDate] = useState([])
+    const [dateRange, setDateRange] = useState([])
+    
     
   
     useEffect(() => {
@@ -80,8 +71,28 @@ const Home = ({setCurrentUser}) => {
             }
         })
     }
+    // trying to get calendar to filter hangouts shown!!!
+
+    // useEffect(() => {
+    //     console.log("This is changing")
+    //     const filtered = dateRange[0].dates.filter((date)=>{
+    //         console.log(date.date)
+    //         return value.toDateString() === date.date
+    //     })
+    //     console.log(filtered)
+    // }, [value])
+
+    // async function filterDate (newValue) {
+    //     if (value !== newValue) {
+    //         const filtered = await dateRange[0].dates.filter((date)=>{
+    //             console.log(date.date)
+    //             return value.toDateString() === date.date
+    //         })
+    //         console.log(filtered)
+    //     }
+    // }
     
-    
+    // trying to get calendar to filter hangouts shown!!!
     
     return (
         
@@ -108,6 +119,20 @@ const Home = ({setCurrentUser}) => {
                         value={value} 
                         onChange={(newValue) => {
                             setValue(newValue);
+                            // trying to get calendar to filter hangouts shown!!!
+
+                            // filterDate(newValue)
+                                // if (value !== newValue) {
+
+                                //     const filtered = dateRange[0].dates.filter((date)=>{
+                                //         console.log(date.date)
+                                //         return value.toDateString() === date.date
+                                //     })
+                                //     console.log(filtered)
+                                // }
+                            
+                            // trying to get calendar to filter hangouts shown!!!
+                        
                         }}
                     />
                 </LocalizationProvider>
@@ -127,7 +152,7 @@ const Home = ({setCurrentUser}) => {
             </Box>
           </Grid>
           <Grid item xs={9} md={9} lg={6}>
-            <ListHangouts value={value} listHangoutsByDate={listHangoutsByDate} setListHangoutsByDate={setListHangoutsByDate}/>
+            <ListHangouts dateRange={dateRange} setDateRange={setDateRange} value={value} />
           </Grid>
           <Grid item xs={9} md={9} lg={3}>
             <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">

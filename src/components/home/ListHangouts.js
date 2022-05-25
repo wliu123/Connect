@@ -4,10 +4,9 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HangoutDate from "./HangoutDate";
 
-const ListHangouts = ({value, listHangoutsByDate, setListHangoutsByDate}) => {
+const ListHangouts = ({dateRange, setDateRange, value}) => {
 
     // set date ranges from current date begin
-    const [dateRange, setDateRange] = useState([])
     useEffect(() => {
         const ranges = Array.from({length: 10}, (x, i) => i)
         const getDate = value => (relative = 0) => {
@@ -67,7 +66,7 @@ const ListHangouts = ({value, listHangoutsByDate, setListHangoutsByDate}) => {
                             return (
                             <li key={eachDate.id}>
                                 <ul>
-                                    <HangoutDate listHangoutsByDate={listHangoutsByDate} setListHangoutsByDate={setListHangoutsByDate} eachDate={eachDate.date} />
+                                    <HangoutDate eachDate={eachDate.date} />
                                   
                                 </ul>
                             </li>
