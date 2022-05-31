@@ -5,14 +5,17 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import CommentIcon from '@mui/icons-material/Comment';
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import {API} from 'aws-amplify'
+import * as queries from '../../graphql/queries';
 
-const Friends = ({friendsList}) => {
+
+const Friends = ({currentUser, friendsList, setFriendsList}) => {
   
   // MUI open menu box begin//
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -24,15 +27,38 @@ const Friends = ({friendsList}) => {
     };
   // MUI open menu box end//
 
+  useEffect(() => {
+    if (currentUser) {
+      listFriends()
+    }
+  }, [currentUser])
+
+  async function listFriends() {
+    console.log(currentUser)
+    let filter = {
+        followee: {
+            contains: currentUser.email
+        }
+    }
+    const listFriends = await API.graphql({
+        query: queries.listFriends,
+        variables: {filter: filter},
+        authMode: "AMAZON_COGNITO_USER_POOLS"
+    })
+    
+    setFriendsList(listFriends.data.listFriends.items)
+}
+
     return (
         <List 
             dense 
             sx={{ 
                 width: '100%', 
+                minHeight: 120, 
                 bgcolor: 'background.paper',
                 position: 'relative',
                 overflow: 'auto',
-                maxHeight: 120,  
+                maxHeight: 160,  
                 borderColor: 'text.primary',
                 border: 1,
                 borderRadius:1,
@@ -45,7 +71,7 @@ const Friends = ({friendsList}) => {
               key={friend.name}
               secondaryAction={
                 <IconButton edge="end" aria-label="comments">
-                    <CommentIcon />
+                    <AccountBoxIcon/>
                 </IconButton>
               }
               disablePadding

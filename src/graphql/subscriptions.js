@@ -118,6 +118,7 @@ export const onCreateFriends = /* GraphQL */ `
       bio
       followersCount
       followingCount
+      followee
       createdAt
       updatedAt
       owner
@@ -136,6 +137,7 @@ export const onUpdateFriends = /* GraphQL */ `
       bio
       followersCount
       followingCount
+      followee
       createdAt
       updatedAt
       owner
@@ -154,9 +156,85 @@ export const onDeleteFriends = /* GraphQL */ `
       bio
       followersCount
       followingCount
+      followee
       createdAt
       updatedAt
       owner
+    }
+  }
+`;
+export const onCreateMessage = /* GraphQL */ `
+  subscription OnCreateMessage {
+    onCreateMessage {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateMessage = /* GraphQL */ `
+  subscription OnUpdateMessage {
+    onUpdateMessage {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteMessage = /* GraphQL */ `
+  subscription OnDeleteMessage {
+    onDeleteMessage {
+      id
+      channelID
+      author
+      body
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onCreateChannel = /* GraphQL */ `
+  subscription OnCreateChannel {
+    onCreateChannel {
+      id
+      creator
+      chosen
+      chosen_name
+      chosen_picture
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateChannel = /* GraphQL */ `
+  subscription OnUpdateChannel {
+    onUpdateChannel {
+      id
+      creator
+      chosen
+      chosen_name
+      chosen_picture
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteChannel = /* GraphQL */ `
+  subscription OnDeleteChannel {
+    onDeleteChannel {
+      id
+      creator
+      chosen
+      chosen_name
+      chosen_picture
+      createdAt
+      updatedAt
     }
   }
 `;

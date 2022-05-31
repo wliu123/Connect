@@ -31,13 +31,13 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
 
     return (
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-      {filteredUsers.map((user) => {
+      {filteredUsers.map((userStranger) => {
         
         return (
           <ListItem
-            key={user.name}
+            key={userStranger.name}
             secondaryAction={
-              <Button onClick={() => followFriend(user)}>Follow</Button>
+              <Button onClick={() => followFriend(userStranger)}>Follow</Button>
             }
             disablePadding
           >
@@ -45,10 +45,10 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
                 <ListItemButton onClick={handleOpenUserMenu}>
                 <ListItemAvatar>
                     <Avatar
-                    src={user.profile_picture}
+                    src={userStranger.profile_picture}
                     />
                 </ListItemAvatar>
-                <ListItemText primary={user.name} secondary={user.email} />
+                <ListItemText primary={userStranger.name} secondary={userStranger.email} />
                 </ListItemButton>
                 <Menu
                   sx={{ mt: '45px' }}

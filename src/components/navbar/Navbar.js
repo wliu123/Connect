@@ -10,15 +10,19 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react'
 import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
+import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
+import ChatSharpIcon from '@mui/icons-material/ChatSharp';
+
 
 const Navbar = ({currentUser}) => {
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
+    const [isPending, startTransition] = useTransition()
     const pages = ["test", "test1"]
     const navigate = useNavigate()
     const {user, signOut} = useAuthenticator((context) => [
@@ -54,6 +58,9 @@ const Navbar = ({currentUser}) => {
 
       const displayLogged = (
         <Box sx={{ flexGrow: 0 }}>
+                <IconButton onClick={()=> navigate('/chats')} sx={{ pr: 5 }}>
+                   <ChatSharpIcon fontSize="large"/>
+                </IconButton>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar alt="Remy Sharp" src={currentUser?currentUser.profile_picture:null}/>
@@ -81,6 +88,7 @@ const Navbar = ({currentUser}) => {
                     </MenuItem>
                   ))}
                 </Menu>
+                
               </Box>
       )
 

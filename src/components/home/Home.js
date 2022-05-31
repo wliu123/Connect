@@ -14,7 +14,8 @@ import Groups from './Groups';
 import SuggestUsers from './SuggestUsers';
 import ListHangouts from './ListHangouts';
 
-const Home = ({setCurrentUser}) => {
+
+const Home = ({setCurrentUser, currentUser}) => {
     const [value,setValue] = useState(new Date())
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
@@ -28,9 +29,20 @@ const Home = ({setCurrentUser}) => {
 
     async function getCurrentUser() {
         const user = await Auth.currentAuthenticatedUser() 
+        getUserFromTable(user)
         listUsers(user.attributes.email)
-        listFriends()
-        setCurrentUser(user)
+        
+    }
+
+    async function getUserFromTable(user) {
+        
+        const loggedUser = await API.graphql({
+            query: queries.getUsers,
+            variables: {
+                id: user.username
+            }
+        })
+        setCurrentUser(loggedUser.data.getUsers)
     }
 
     async function listUsers(email) {
@@ -48,21 +60,17 @@ const Home = ({setCurrentUser}) => {
        
     }
 
-    async function listFriends() {
-        const listFriends = await API.graphql({
-            query: queries.listFriends,
-            authMode: "AMAZON_COGNITO_USER_POOLS"
-        })
-        setFriendsList(listFriends.data.listFriends.items)
-    }
     
-    async function followFriend(user) {
+    
+    async function followFriend(userStranger) {
+        
         const friendDetail = {
-            email: user.email,
+            email: userStranger.email,
             followedBy: false,
             following: true,
-            name: user.name,
-            profile_picture: user.profile_picture
+            name: userStranger.name,
+            profile_picture: userStranger.profile_picture,
+            followee: currentUser.email
         }
         await API.graphql({
             query: mutations.createFriends,
@@ -71,7 +79,7 @@ const Home = ({setCurrentUser}) => {
             }
         })
     }
-    // trying to get calendar to filter hangouts shown!!!
+    // trying to get calendar to filter hangouts shown!!! use querysearch params to filter the state?
 
     // useEffect(() => {
     //     console.log("This is changing")
@@ -140,11 +148,11 @@ const Home = ({setCurrentUser}) => {
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Upcoming Events
                 </Typography>
-                        <AttendingEvents/>
+                        <AttendingEvents currentUser={currentUser} />
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Friends
                 </Typography>
-                        <Friends friendsList={friendsList}/>
+                        <Friends currentUser={currentUser} setFriendsList={setFriendsList} friendsList={friendsList}/>
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Groups
                 </Typography>

@@ -8,7 +8,7 @@ const ListHangouts = ({dateRange, setDateRange, value}) => {
 
     // set date ranges from current date begin
     useEffect(() => {
-        const ranges = Array.from({length: 10}, (x, i) => i)
+        const ranges = Array.from({length: 20}, (x, i) => i)
         const getDate = value => (relative = 0) => {
             let newDate = value ? new Date(value) : new Date();
             newDate.setDate(newDate.getDate() + relative);
@@ -61,7 +61,6 @@ const ListHangouts = ({dateRange, setDateRange, value}) => {
                         subheader={<li />}
                     >
                         {dateRange[0].dates.map((eachDate) => {
-                            // getDateHangouts(eachDate.date)
                            
                             return (
                             <li key={eachDate.id}>

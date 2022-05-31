@@ -6,8 +6,9 @@ import Landing from "./components/landing_page/Landing";
 import Home from "./components/home/Home";
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import Authorization from "./components/authorization/Authorization";
-import {Hub, Auth, API} from 'aws-amplify'
 import SearchSpots from "./components/search_spots/SearchSpots";
+import ChatsPage from "./components/chats/ChatsPage";
+
 
 
 
@@ -40,10 +41,12 @@ function App() {
           element={
             <RequireAuth>
 
-              <Home setCurrentUser={setCurrentUser}/>
+              <Home currentUser={currentUser} setCurrentUser={setCurrentUser}/>
             </RequireAuth>
           } 
         />
+        
+        <Route path="/chats" element={<ChatsPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
         <Route path="/search_spots" element={<SearchSpots currentUser={currentUser}/>} />
       </Routes>
       </Authenticator.Provider>

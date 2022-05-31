@@ -50,6 +50,28 @@ type Friends @model @auth(rules: [
   bio: String
   followersCount: Int
   followingCount: Int
-  
+  followee: String!
 }
- 
+
+type Message @model @auth(rules: [
+  {allow: private}
+])
+{
+  id: ID!
+  channelID:ID! @index(name: "byChannelID", sortKeyFields: ["createdAt"], queryField: "messagesByChannelID")
+  author: String!
+  body: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
+
+type Channel @model @auth(rules: [
+  {allow: private}
+])
+{
+  id: ID!
+  creator: ID!
+  chosen: ID!
+  chosen_name: String!
+  chosen_picture: String!
+}

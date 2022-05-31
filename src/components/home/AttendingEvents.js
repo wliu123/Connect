@@ -1,18 +1,45 @@
 import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
+import { useEffect, useState } from 'react';
+import EachEvent from './EachEvent';
 
-const AttendingEvents = () => {
-    
+
+const AttendingEvents = ({currentUser}) => {
+
+    const [todaysDate, setTodaysDate] = useState(new Date())
+    const [selfDateRange, setSelfDateRange] = useState([])
+
+    useEffect(() => {
+        const ranges = Array.from({length: 7}, (x, i) => i)
+        const getDate = todaysDate => (relative = 0) => {
+            let newDate = todaysDate ? new Date(todaysDate) : new Date();
+            newDate.setDate(newDate.getDate() + relative);
+            return newDate
+        }
+        const getDates = (todaysDate, offsets=[0]) => {
+            const getDateOffset = getDate(todaysDate);
+            return offsets.map((offset, index) => {
+                const offSetDate = getDateOffset(offset)
+                return {
+                    id: index,
+                    date: offSetDate.toDateString()
+                }
+            })
+        }
+        const state = {
+            dates: getDates(todaysDate, ranges)
+        }
+        setSelfDateRange([state])
+    }, [])
+
     return (
         <List
             sx={{
-                width: '100%',
+                width: '100%', 
+                minHeight: 120, 
                 bgcolor: 'background.paper',
                 position: 'relative',
                 overflow: 'auto',
-                maxHeight: 150,
+                maxHeight: 160,  
                 borderColor: 'text.primary',
                 border: 1,
                 borderRadius:1,
@@ -20,16 +47,11 @@ const AttendingEvents = () => {
             }}
             subheader={<li />}
             >
-            {[0, 1, 2, 3, 4].map((sectionId) => (
-                <li key={`section-${sectionId}`}>
-                <ul>
-                    <ListSubheader>Put the date of event as subheader</ListSubheader> 
-                    {[0, 1, 2].map((item) => (
-                    <ListItem key={`item-${sectionId}-${item}`}>
-                        <ListItemText primary="Put the name of event as primary text" />
-                    </ListItem>
-                    ))}
-                </ul>
+            {selfDateRange?.map((event) => (
+                <li key={event.id}>
+                    <ul>
+                        <EachEvent currentUser={currentUser} event={event.date}/>
+                    </ul>
                 </li>
             ))}
         </List>
