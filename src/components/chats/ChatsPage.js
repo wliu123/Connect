@@ -101,13 +101,6 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         }
     }, [])
 
-    // useEffect(() => {
-    //     if (currentUser) {
-
-    //         getOpenChannels()
-    //     }
-    // }, [])
-
     async function getCurrentFriends() {
         let filter = {
             followee: {
@@ -119,8 +112,12 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
+        const chatList = listFriends.data.listFriends.items
+        const filteredFriends = chatList.filter((chat) => {
+            return !openChats.find(openChat => chat.email === openChat.chosen)
+        })
         
-        setFriendsChat(listFriends.data.listFriends.items)
+        setFriendsChat(filteredFriends)
     }
     async function getOpenChannels() {
         
@@ -129,7 +126,6 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                 contains: currentUser.email
             }
         }
-        console.log(filter)
         const openChats = await API.graphql({
             query: queries.listChannels,
             variables: {filter: filter},
@@ -154,35 +150,6 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         
         setChosenChats(chosenChat.data.listChannels.items)
     }
-
-    // async function getOpenChannels() {
-    //     let filter = {
-    //         creator: {
-    //             contains: currentUser.username
-    //         }
-    //     }
-    //     const openChats = API.graphql({
-    //         query: queries.listChannels,
-    //         variables: {filter: filter},
-    //         authMode: "AMAZON_COGNITO_USER_POOLS"
-    //     })
-    //     console.log(openChats)
-    //     setOpenChats(openChats.data.listChannels.items)
-    // }
-
-    // const clickCreateChat = (activeFriend) => {
-    //     console.log(activeFriend)
-    //     if (activeFriend && !messages) {
-    //         // createChat(activeFriend)
-    //         console.log("Hello")
-    //     }
-    // }
-
-    // async function createChat(activeFriend) {
-
-    // }
-
-    
 
     return (
         <Box
@@ -212,14 +179,10 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                 </List>
                 <Divider />
                 <Grid item xs={12} m={12} lg={12} style={{padding: '10px'}}>
-                    {/* search using autocomplete list of friends, when click on friend, create a new channelID */}
                     <TextField id="outlined-basic-email" label="Search" variant="outlined" fullWidth />
                 </Grid>
                 <Divider />
                 <div className='app-sidebar-friend'>
-
-                    {/* this needs to list channelID's and not just friends.  */}
-                    {/* {!friendsChat.length>0 ? <div>Loading...</div> : <FriendList activeFriend={activeFriend} setActiveFriend={setActiveFriend} currentUser={currentUser} friendsChat={friendsChat}/>} */}
                     {!openChats.length > 0
                         ?
                         null
@@ -257,34 +220,5 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
     )
     
 }
-{/* <ListItem key="1">
-    <Grid container>
-        <Grid item xs={12}>
-            <ListItemText align="right" primary="Hey man, What's up ?"></ListItemText>
-        </Grid>
-        <Grid item xs={12}>
-            <ListItemText align="right" secondary="09:30"></ListItemText>
-        </Grid>
-    </Grid>
-</ListItem>
-<ListItem key="2">
-    <Grid container>
-        <Grid item xs={12}>
-            <ListItemText align="left" primary="Hey, Iam Good! What about you ?"></ListItemText>
-        </Grid>
-        <Grid item xs={12}>
-            <ListItemText align="left" secondary="09:31"></ListItemText>
-        </Grid>
-    </Grid>
-</ListItem>
-<ListItem key="3">
-    <Grid container>
-        <Grid item xs={12}>
-            <ListItemText align="right" primary="Cool. i am good, let's catch up!"></ListItemText>
-        </Grid>
-        <Grid item xs={12}>
-            <ListItemText align="right" secondary="10:30"></ListItemText>
-        </Grid>
-    </Grid>
-</ListItem> */}
+
 export default ChatsPage

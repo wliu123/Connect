@@ -55,9 +55,7 @@ const FriendList = ({selectedValue, open, onClose, activeFriend, friendsChat, cu
                 <>
                  <ListItem button onClick={() => handleListItemClick(eachFriend)} key={eachFriend.email}>
                     <ListItemAvatar>
-                    <Avatar sx={{ bgcolor: blue[100], color: blue[600] }}>
-                        <PersonIcon />
-                    </Avatar>
+                    <Avatar alt="profile photo" src={eachFriend.profile_picture} />
                     </ListItemAvatar>
                     <ListItemText primary={eachFriend.name} />
                 </ListItem>
