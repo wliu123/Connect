@@ -9,7 +9,8 @@ import {API} from 'aws-amplify'
 import Box from '@material-ui/core/Box';
 
 const ChatBar = ({activeFriend, currentUser}) => {
-
+    console.log(currentUser)
+    console.log(activeFriend)
     const [messageBody, setMessageBody] = useState("")
     const handleChange = (e) => {
         setMessageBody(e.target.value)
@@ -20,7 +21,7 @@ const ChatBar = ({activeFriend, currentUser}) => {
         
         const bodyDetail = {
             channelID: activeFriend.id, 
-            author: currentUser.username,
+            author: currentUser.id,
             body: messageBody.trim()
         }
         try {

@@ -20,6 +20,7 @@ import Messages from './Messages';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import OpenChats from './OpenChats';
+import ChosenChat from './ChosenChat';
 
 
 const useStyles = makeStyles({
@@ -43,9 +44,9 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
 
     const [messages, setMessages] = useState("")
     const [friendsChat, setFriendsChat] = useState([])
-    const [channelID, setChannelID] = useState("")
     const [activeFriend, setActiveFriend] = useState(false)
     const [openChats, setOpenChats] = useState([])
+    const [chosenChats, setChosenChats] = useState([])
     // dialog box for friends chatroom
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState([]);
@@ -61,7 +62,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
     // dialog for chatsroom end
     
     const classes = useStyles()
-    
+    // get user Info begin
     useEffect(() => {
         if (!currentUser) {
 
@@ -70,9 +71,21 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
     },[])
     async function getCurrentUser() {
         const user = await Auth.currentAuthenticatedUser() 
-        setCurrentUser(user)
+        getUserFromTable(user)
         
     }
+    async function getUserFromTable(user) {
+        
+        const loggedUser = await API.graphql({
+            query: queries.getUsers,
+            variables: {
+                id: user.username
+            }
+        })
+        setCurrentUser(loggedUser.data.getUsers)
+    }
+    // get user Info end
+
     useEffect(() => {
         if (currentUser) {
 
@@ -84,6 +97,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         if (currentUser) {
 
             getOpenChannels()
+            getOpenChannelsTwo()
         }
     }, [])
 
@@ -97,7 +111,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
     async function getCurrentFriends() {
         let filter = {
             followee: {
-                contains: currentUser.attributes.email
+                contains: currentUser.email
             }
         }
         const listFriends = await API.graphql({
@@ -112,15 +126,33 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         
         let filter = {
             creator: {
-                contains: currentUser.username
+                contains: currentUser.email
             }
         }
+        console.log(filter)
         const openChats = await API.graphql({
             query: queries.listChannels,
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
+        
         setOpenChats(openChats.data.listChannels.items)
+    }
+
+    async function getOpenChannelsTwo() {
+        let filter = {
+            chosen: {
+                contains: currentUser.email
+            }
+        }
+        
+        const chosenChat = await API.graphql({
+            query: queries.listChannels,
+            variables: {filter: filter},
+            authMode: "AMAZON_COGNITO_USER_POOLS"
+        })
+        
+        setChosenChats(chosenChat.data.listChannels.items)
     }
 
     // async function getOpenChannels() {
@@ -169,9 +201,9 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                 <List>
                     <ListItem key="RemySharp">
                         <ListItemIcon>
-                        <Avatar alt="Remy Sharp" src="https://material-ui.com/static/images/avatar/1.jpg" />
+                        <Avatar alt="Remy Sharp" src={currentUser.profile_picture} />
                         </ListItemIcon>
-                        <ListItemText primary="John Wick"></ListItemText>
+                        <ListItemText primary={currentUser.name}></ListItemText>
                         <Fab size="small" color="info" aria-label="add" onClick={handleClickOpen}>
                             <AddIcon />
                         </Fab>
@@ -196,6 +228,11 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                         {openChats.map((chat) => {
                             return (
                                 <OpenChats chat={chat} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
+                            )
+                        })}
+                        {chosenChats.map((chosen)=> {
+                            return (
+                                <ChosenChat chosen={chosen} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
                             )
                         })}
                         </>

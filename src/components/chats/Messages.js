@@ -4,7 +4,7 @@ import * as queries from '../../graphql/queries';
 import "./chat.css"
 import '@aws-amplify/pubsub'
 import * as subscriptions from '../../graphql/subscriptions'
-const Messages = ({clickCreateChat, currentUser, messages, setMessages, activeFriend}) => {
+const Messages = ({currentUser, messages, setMessages, activeFriend}) => {
     
     useEffect(() => {
         API.graphql({
@@ -21,25 +21,8 @@ const Messages = ({clickCreateChat, currentUser, messages, setMessages, activeFr
                 setMessages(items)
             }
         })
-        // getMessages()
     }, [activeFriend])
 
-    // async function getMessages() {
-    //     await  API.graphql({
-    //         query: queries.messagesByChannelID, 
-    //         variables: {
-    //             channelID: activeFriend.id,
-    //             sortDirection: 'ASC'
-    //         },
-    //         authMode: "AMAZON_COGNITO_USER_POOLS"
-    //     })
-    //     .then ((response) => {
-    //         const items = response.data?.messagesByChannelID?.items
-    //         if (items) {
-    //             setMessages(items)
-    //         }
-    //     })
-    // }
 
     useEffect(() => {
         const subscription = API.graphql(
@@ -75,7 +58,7 @@ const Messages = ({clickCreateChat, currentUser, messages, setMessages, activeFr
             messages?.map((message) => (
                 <div
                     key={message.id}
-                    className={message.author ===  currentUser?.username ? 'message me' : 'message'}
+                    className={message.author ===  currentUser?.id ? 'message me' : 'message'}
                 >
                     {message.body}
                 </div>

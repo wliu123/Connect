@@ -70,8 +70,8 @@ type Channel @model @auth(rules: [
 ])
 {
   id: ID!
-  creator: ID!
-  chosen: ID!
+  creator: String!
+  chosen: String!
   chosen_name: String!
   chosen_picture: String!
 }
