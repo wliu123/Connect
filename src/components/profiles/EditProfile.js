@@ -7,6 +7,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
+import { API } from 'aws-amplify';
+import * as mutations from '../../graphql/mutations'
 
 const EditProfile = ({currentUser, editProfile, setEditProfile}) => {
     
@@ -18,6 +20,21 @@ const EditProfile = ({currentUser, editProfile, setEditProfile}) => {
     const handleProfileClose = () => {
         setEditProfile(false);
       };
+
+    async function handleSubmit() {
+        let updateDetails = {
+            id: currentUser.id,
+            name: modProfile.name,
+            bio: modProfile.bio
+        }
+        await API.graphql({
+            query: mutations.updateUsers,
+            variables: {
+                input: updateDetails
+            }
+        })
+        setEditProfile(false)
+    }
 
     return (
         <div>
@@ -39,6 +56,13 @@ const EditProfile = ({currentUser, editProfile, setEditProfile}) => {
             id="name"
             name="name"
             label="Name"
+            value={modProfile.name}
+            onChange={(e) => {
+                setModProfile({
+                    ...modProfile,
+                    [e.target.name]:e.target.value
+                })
+            }}
             type="name"
             fullWidth
             variant="standard"
@@ -49,6 +73,13 @@ const EditProfile = ({currentUser, editProfile, setEditProfile}) => {
             id="name"
             name="bio"
             label="Bio"
+            value={modProfile.bio}
+            onChange={(e) => {
+                setModProfile({
+                    ...modProfile,
+                    [e.target.name]:e.target.value
+                })
+            }}
             type="bio"
             fullWidth
             variant="standard"
@@ -58,7 +89,7 @@ const EditProfile = ({currentUser, editProfile, setEditProfile}) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleProfileClose}>Cancel</Button>
-          <Button onClick={handleProfileClose}>Modify</Button>
+          <Button onClick={handleSubmit}>Modify</Button>
         </DialogActions>
       </Dialog>
     </div>
