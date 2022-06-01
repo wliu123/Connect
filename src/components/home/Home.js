@@ -70,7 +70,9 @@ const Home = ({setCurrentUser, currentUser}) => {
             following: true,
             name: userStranger.name,
             profile_picture: userStranger.profile_picture,
-            followee: currentUser.email
+            followee: currentUser.email,
+            followersCount: userStranger.followersCount,
+            followingCount: userStranger.folloingCount
         }
         await API.graphql({
             query: mutations.createFriends,
@@ -153,10 +155,10 @@ const Home = ({setCurrentUser, currentUser}) => {
                     Friends
                 </Typography>
                         <Friends currentUser={currentUser} setFriendsList={setFriendsList} friendsList={friendsList}/>
-                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                {/* <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     Groups
                 </Typography>
-                        <Groups />
+                        <Groups /> */}
             </Box>
           </Grid>
           <Grid item xs={9} md={9} lg={6}>

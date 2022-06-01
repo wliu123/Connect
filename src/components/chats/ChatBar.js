@@ -40,7 +40,7 @@ const ChatBar = ({activeFriend, currentUser}) => {
         
         <>
         <Grid item xs={1}>
-            <Avatar alt="Cindy Baker" src="https://material-ui.com/static/images/avatar/2.jpg" />
+            <Avatar alt="Cindy Baker" src={currentUser.profile_picture} />
         </Grid>
         <Grid item xs={10}>
             <Box

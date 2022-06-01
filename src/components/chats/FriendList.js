@@ -10,9 +10,11 @@ import { blue } from '@mui/material/colors';
 import "./chat.css"
 import { API } from "aws-amplify";
 import * as mutations from '../../graphql/mutations'
+import { useEffect } from 'react';
 
-const FriendList = ({selectedValue, open, onClose, activeFriend, friendsChat, currentUser, setActiveFriend}) => {
-    
+const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, activeFriend, friendsChat, currentUser, setActiveFriend}) => {
+    console.log(friendsChat)
+    console.log(openChats)
     const handleClose = (value) => {
         
         onClose([
@@ -44,25 +46,40 @@ const FriendList = ({selectedValue, open, onClose, activeFriend, friendsChat, cu
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
       }
+
+    useEffect(() => {
+        // if (friendsChat) {
+            const filteredFriends = friendsChat.filter((chat) => {
+              return !openChats.find(openChat => chat.email === openChat.chosen)
+            })
+            setFriendsChat(filteredFriends)
+        // }
+    }, [])
     
     return (
         <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Start a conversation</DialogTitle>
             <List sx={{ pt: 0 }}>
-        {friendsChat.map((eachFriend) => {
+        {
+            !friendsChat.length>0
+            ?
+            <div>Loading...</div>
+            :
+            friendsChat?.map((eachFriend) => {
           
-            return (
-                <>
-                 <ListItem button onClick={() => handleListItemClick(eachFriend)} key={eachFriend.email}>
-                    <ListItemAvatar>
-                    <Avatar alt="profile photo" src={eachFriend.profile_picture} />
-                    </ListItemAvatar>
-                    <ListItemText primary={eachFriend.name} />
-                </ListItem>
-                
-                </>
-            )
-        })}
+                return (
+                    <>
+                     <ListItem button onClick={() => handleListItemClick(eachFriend)} key={eachFriend?.email}>
+                        <ListItemAvatar>
+                        <Avatar alt="profile photo" src={eachFriend?.profile_picture} />
+                        </ListItemAvatar>
+                        <ListItemText primary={eachFriend?.name} />
+                    </ListItem>
+                    
+                    </>
+                )
+            })
+        }
             </List>
         </Dialog>
        

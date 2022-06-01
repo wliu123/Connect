@@ -30,7 +30,13 @@ const Navbar = ({currentUser}) => {
       context.signOut
     ])
     const settings = [
-      <div>Profile</div>, 
+      <div
+        onClick={()=>{
+          navigate('/user_profile')
+        }}
+      >
+        Profile
+      </div>, 
       <div>Account</div>, 
       <div onClick={() => {
         signOut()

@@ -1,5 +1,5 @@
 type Users @model @auth(rules: [
-    {allow: private, operations: [read]},
+    {allow: private, operations: [read, update]},
     {allow: public},
     {allow: owner}
 ]) 

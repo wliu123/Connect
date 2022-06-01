@@ -3,6 +3,7 @@ import {API} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
 import ListSubheader from '@mui/material/ListSubheader';
 import EachHangout from "./EachHangout";
+import Divider from '@material-ui/core/Divider';
 
 
 
@@ -31,6 +32,7 @@ const HangoutDate = ({eachDate}) => {
    
        <>
        <ListSubheader>{eachDate}</ListSubheader>
+       <Divider variant="middle"/>
        {
            !listHangoutsByDate.length > 0
            ?

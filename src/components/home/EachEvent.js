@@ -4,18 +4,24 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import { API } from 'aws-amplify';
+import EachUpcoming from "./EachUpcoming";
+import Divider from '@material-ui/core/Divider';
 
 const EachEvent = ({currentUser, event}) => {
-    console.log(event)
+  
     const [eventsByDate, setEventsByDate] = useState([])
     useEffect(() => {
-        getUpcomingEvents(event)
+       
+
+            getUpcomingEvents(event)
+        
     }, [])
 
     async function getUpcomingEvents(event) {
+       
         let filter = {
             created_by: {
-                contains: currentUser.id
+                contains: currentUser.email
             }
         }
         const eventByDate = await API.graphql({
@@ -35,11 +41,19 @@ const EachEvent = ({currentUser, event}) => {
     return (
         <>
         <ListSubheader>{event}</ListSubheader> 
-                    {eventsByDate?.map((event) => (
-                    <ListItem key={event.id}>
-                        <ListItemText primary="Put the name of event as primary text" />
-                    </ListItem>
-                    ))}
+        <Divider/>
+                    {
+                        !eventsByDate.length>0
+                        ?
+                        <div>Loading...</div>
+                        :
+                        <>
+                        {eventsByDate[0].map((event) => (
+                            <EachUpcoming event={event}/>
+                        ))}
+                        </>
+
+                    }
         </>
     )
     

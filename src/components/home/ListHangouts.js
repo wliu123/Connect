@@ -57,6 +57,7 @@ const ListHangouts = ({dateRange, setDateRange, value}) => {
                             position: 'relative',
                             overflow: 'auto',
                             '& ul': { padding: 0 },
+                            border: 'solid 1px'
                         }}
                         subheader={<li />}
                     >

@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "storage": {
+      "Users:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

@@ -9,7 +9,9 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import Box from '@mui/material/Box';
-import { Button } from '@mui/material';
+import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import IconButton from '@mui/material/IconButton';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 
 const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
     
@@ -22,6 +24,7 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
         setAnchorElUser(null);
       };
     // MUI open menu box end//
+    const [toggle, setToggle] = useState(false)
 
     const filteredUsers = suggestedUsers.filter(suggest => {
         const friendEmails = friendsList.map(friend => friend.email)
@@ -37,7 +40,16 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
           <ListItem
             key={userStranger.name}
             secondaryAction={
-              <Button onClick={() => followFriend(userStranger)}>Follow</Button>
+              toggle
+              ?
+              <VerifiedUserIcon/>
+              :
+              <IconButton edge="end" aria-label="follow friend" onClick={()=> {
+                  followFriend(userStranger)
+                  setToggle(true)
+                }}>
+              <PersonAddAltIcon/>
+              </IconButton>
             }
             disablePadding
           >
@@ -48,7 +60,7 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
                     src={userStranger.profile_picture}
                     />
                 </ListItemAvatar>
-                <ListItemText primary={userStranger.name} secondary={userStranger.email} />
+                <ListItemText primary={userStranger.name}  />
                 </ListItemButton>
                 <Menu
                   sx={{ mt: '45px' }}

@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3connectuserprofiles",
+  "policyUUID": "2cdc43f5",
+  "bucketName": "s3connectuserprofiles",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "triggerFunction": "S3Triggerbd155781",
+  "groupAccess": {}
+}

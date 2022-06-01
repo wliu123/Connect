@@ -8,6 +8,7 @@ import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react';
 import Authorization from "./components/authorization/Authorization";
 import SearchSpots from "./components/search_spots/SearchSpots";
 import ChatsPage from "./components/chats/ChatsPage";
+import UserProfile from "./components/profiles/UserProfile";
 
 
 
@@ -48,6 +49,7 @@ function App() {
         
         <Route path="/chats" element={<ChatsPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
         <Route path="/search_spots" element={<SearchSpots currentUser={currentUser}/>} />
+        <Route path="/user_profile" element={<UserProfile setCurrentUser={setCurrentUser} currentUser = {currentUser}/>} />
       </Routes>
       </Authenticator.Provider>
     

@@ -54,11 +54,11 @@ const Friends = ({currentUser, friendsList, setFriendsList}) => {
             dense 
             sx={{ 
                 width: '100%', 
-                minHeight: 120, 
+                minHeight: 250, 
                 bgcolor: 'background.paper',
                 position: 'relative',
                 overflow: 'auto',
-                maxHeight: 160,  
+                maxHeight: 300,  
                 borderColor: 'text.primary',
                 border: 1,
                 borderRadius:1,

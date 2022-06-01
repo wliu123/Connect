@@ -35,11 +35,11 @@ const AttendingEvents = ({currentUser}) => {
         <List
             sx={{
                 width: '100%', 
-                minHeight: 120, 
+                minHeight: 250, 
                 bgcolor: 'background.paper',
                 position: 'relative',
                 overflow: 'auto',
-                maxHeight: 160,  
+                maxHeight: 300,  
                 borderColor: 'text.primary',
                 border: 1,
                 borderRadius:1,
@@ -47,7 +47,7 @@ const AttendingEvents = ({currentUser}) => {
             }}
             subheader={<li />}
             >
-            {selfDateRange?.map((event) => (
+            {selfDateRange[0]?.dates?.map((event) => (
                 <li key={event.id}>
                     <ul>
                         <EachEvent currentUser={currentUser} event={event.date}/>

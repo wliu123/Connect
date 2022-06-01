@@ -100,25 +100,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             getOpenChannelsTwo()
         }
     }, [])
-
-    async function getCurrentFriends() {
-        let filter = {
-            followee: {
-                contains: currentUser.email
-            }
-        }
-        const listFriends = await API.graphql({
-            query: queries.listFriends,
-            variables: {filter: filter},
-            authMode: "AMAZON_COGNITO_USER_POOLS"
-        })
-        const chatList = listFriends.data.listFriends.items
-        const filteredFriends = chatList.filter((chat) => {
-            return !openChats.find(openChat => chat.email === openChat.chosen)
-        })
-        
-        setFriendsChat(filteredFriends)
-    }
+    
     async function getOpenChannels() {
         
         let filter = {
@@ -133,6 +115,21 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         })
         
         setOpenChats(openChats.data.listChannels.items)
+    }
+    async function getCurrentFriends() {
+        let filter = {
+            followee: {
+                contains: currentUser.email
+            }
+        }
+        const listFriends = await API.graphql({
+            query: queries.listFriends,
+            variables: {filter: filter},
+            authMode: "AMAZON_COGNITO_USER_POOLS"
+        })
+        const chatList = listFriends.data.listFriends.items
+        
+        setFriendsChat(chatList)
     }
 
     async function getOpenChannelsTwo() {
@@ -174,7 +171,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                         <Fab size="small" color="info" aria-label="add" onClick={handleClickOpen}>
                             <AddIcon />
                         </Fab>
-                        <FriendList selectedValue={selectedValue} onClose={handleClose} open={open} activeFriend={activeFriend} setActiveFriend={setActiveFriend} currentUser={currentUser} friendsChat={friendsChat}/>
+                        <FriendList openChats={openChats} setFriendsChat={setFriendsChat} selectedValue={selectedValue} onClose={handleClose} open={open} activeFriend={activeFriend} setActiveFriend={setActiveFriend} currentUser={currentUser} friendsChat={friendsChat}/>
                     </ListItem>
                 </List>
                 <Divider />
