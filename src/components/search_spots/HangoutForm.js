@@ -31,7 +31,7 @@ const HangoutForm = ({ setSearchLoc, setSnackBar, currentUser, open, setOpen, se
 
     async function createHangout() {
         const hangoutDetail = {
-            created_by: currentUser.attributes.email,
+            created_by: currentUser.email,
             date: date,
             description: formValues.description,
             title: formValues.title,

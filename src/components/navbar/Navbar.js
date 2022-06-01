@@ -17,6 +17,8 @@ import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import ChatSharpIcon from '@mui/icons-material/ChatSharp';
+import { fontFamily } from 'styled-system';
+import '../../App.css'
 
 
 const Navbar = ({currentUser}) => {
@@ -74,6 +76,7 @@ const Navbar = ({currentUser}) => {
                 </Tooltip>
                 <Menu
                   sx={{ mt: '45px' }}
+                  zIndex='20'
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -103,16 +106,17 @@ const Navbar = ({currentUser}) => {
     return (
       
           
-          <AppBar position="sticky">
-            <Container maxWidth="xxl">
+          <AppBar position="sticky" color='transparent'>
+            <Container maxWidth="xxl" sx={{height: '7vh'}}>
               <Toolbar disableGutters>
                 <Typography
                   variant="h4"
                   noWrap
                   component="div"
                   sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                  className="connect"
                 >
-                  Test Location
+                  Connect
                 </Typography>
                 {user && (
                   <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -128,6 +132,7 @@ const Navbar = ({currentUser}) => {
                     </IconButton>
                     <Menu
                       id="menu-appbar"
+                      zIndex="20"
                       anchorEl={anchorElNav}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -160,10 +165,10 @@ const Navbar = ({currentUser}) => {
                 >
                   Connect
                 </Typography>
-                <Box sx={{ flexGrow: 1, mr: 2, display: { xs: 'none', md: 'flex' } }}>
+                <Box sx={{ flexGrow: 1, mr: 2, pl: 5, display: { xs: 'none', md: 'flex' } }}>
                   {!user? 
                       <Button
-                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      sx={{ my: 2, color: 'blue', display: 'block' }}
                       onClick={() => navigate("/home")}
                       >
                         Login
@@ -171,16 +176,16 @@ const Navbar = ({currentUser}) => {
                       :
                       <>
                       <Button
-                      sx={{ my: 2, color: 'white', display: 'block' }}
-                      onClick={() => navigate("/search_spots")}
-                      >
-                        Explore
-                      </Button>
-                      <Button
-                      sx={{ my: 2, color: 'white', display: 'block' }}
+                      sx={{ my: 2, color: 'blue', display: 'block' }}
                       onClick={() => navigate("/home")}
                       >
                         Dashboard
+                      </Button>
+                      <Button
+                      sx={{ my: 2, color: 'blue', display: 'block' }}
+                      onClick={() => navigate("/search_spots")}
+                      >
+                        Explore
                       </Button>
                       </>
                   }

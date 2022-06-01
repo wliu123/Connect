@@ -106,8 +106,9 @@ const Home = ({setCurrentUser, currentUser}) => {
     
     return (
         
+        <Grid container sx={{height: '3vh'}}>
 
-    <Box sx={{ flexGrow: 1, px: 10, mt: 2 }}>
+    <Box sx={{ flexGrow: 1, px: 10, mt: 2, }}>
         
         <Grid container spacing={2} columns={12}>
           <Grid item xs={3} md={3} lg={3}>
@@ -148,7 +149,7 @@ const Home = ({setCurrentUser, currentUser}) => {
                 </LocalizationProvider>
                
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                    Upcoming Events
+                    My Events
                 </Typography>
                         <AttendingEvents currentUser={currentUser} />
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
@@ -172,6 +173,7 @@ const Home = ({setCurrentUser, currentUser}) => {
           </Grid>
         </Grid>
     </Box>
+        </Grid>
     )
     
 }

@@ -13,8 +13,7 @@ import * as mutations from '../../graphql/mutations'
 import { useEffect } from 'react';
 
 const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, activeFriend, friendsChat, currentUser, setActiveFriend}) => {
-    console.log(friendsChat)
-    console.log(openChats)
+  
     const handleClose = (value) => {
         
         onClose([
@@ -47,15 +46,10 @@ const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, ac
         })
       }
 
-    useEffect(() => {
-        // if (friendsChat) {
-            const filteredFriends = friendsChat.filter((chat) => {
-              return !openChats.find(openChat => chat.email === openChat.chosen)
-            })
-            setFriendsChat(filteredFriends)
-        // }
-    }, [])
-    
+        const filteredFriends = friendsChat.filter((chat) => {
+          return !openChats.find(openChat => chat.email === openChat.chosen)
+        })
+        
     return (
         <Dialog onClose={handleClose} open={open}>
         <DialogTitle>Start a conversation</DialogTitle>
@@ -65,7 +59,7 @@ const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, ac
             ?
             <div>Loading...</div>
             :
-            friendsChat?.map((eachFriend) => {
+            filteredFriends?.map((eachFriend) => {
           
                 return (
                     <>

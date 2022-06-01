@@ -11,10 +11,7 @@ const EachEvent = ({currentUser, event}) => {
   
     const [eventsByDate, setEventsByDate] = useState([])
     useEffect(() => {
-       
-
             getUpcomingEvents(event)
-        
     }, [])
 
     async function getUpcomingEvents(event) {

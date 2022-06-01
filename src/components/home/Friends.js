@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import {API} from 'aws-amplify'
 import * as queries from '../../graphql/queries';
+import Divider from '@material-ui/core/Divider';
 
 
 const Friends = ({currentUser, friendsList, setFriendsList}) => {
@@ -67,6 +68,7 @@ const Friends = ({currentUser, friendsList, setFriendsList}) => {
         {friendsList.map((friend) => {
           
           return (
+            <>
             <ListItem
               key={friend.name}
               secondaryAction={
@@ -108,7 +110,8 @@ const Friends = ({currentUser, friendsList, setFriendsList}) => {
                   </Menu>
               </Box>
             </ListItem>
-            
+          <Divider/>
+            </>
           );
         })}
       </List>

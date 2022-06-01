@@ -9,7 +9,8 @@ import Authorization from "./components/authorization/Authorization";
 import SearchSpots from "./components/search_spots/SearchSpots";
 import ChatsPage from "./components/chats/ChatsPage";
 import UserProfile from "./components/profiles/UserProfile";
-
+import {Auth, API} from 'aws-amplify'
+import * as queries from './graphql/queries';
 
 
 
@@ -24,10 +25,28 @@ export function RequireAuth({ children }) {
 
 function App() {
   
-  const [currentUser, setCurrentUser] = useState(null)
-  
-  
-  
+  const [currentUser, setCurrentUser] = useState('')
+
+  useEffect(() => {
+    getCurrentUser()
+  },[])
+
+async function getCurrentUser() {
+    const user = await Auth.currentAuthenticatedUser() 
+    getUserFromTable(user)
+}
+
+async function getUserFromTable(user) {
+    
+    const loggedUser = await API.graphql({
+        query: queries.getUsers,
+        variables: {
+            id: user.username
+        }
+    })
+    setCurrentUser(loggedUser.data.getUsers)
+
+}
 
   return (
     
@@ -49,7 +68,7 @@ function App() {
         
         <Route path="/chats" element={<ChatsPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
         <Route path="/search_spots" element={<SearchSpots currentUser={currentUser}/>} />
-        <Route path="/user_profile" element={<UserProfile setCurrentUser={setCurrentUser} currentUser = {currentUser}/>} />
+        <Route path="/user_profile" element={<UserProfile setCurrentUser={setCurrentUser}currentUser = {currentUser}/>} />
       </Routes>
       </Authenticator.Provider>
     

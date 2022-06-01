@@ -117,7 +117,7 @@ const Sidebar = ({ setSearchLoc, searchLoc, currentUser }) => {
             </Box>
         }
             {open ? <HangoutForm setSearchLoc={setSearchLoc} setSnackBar={setSnackBar} currentUser={currentUser} selectAddress={selectAddress} setOpen={setOpen} open={open}/> : null}   
-            <Snackbar open={snackBar} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar anchorOrigin={{vertical: 'bottom', horizontal: 'center'}} zIndex='3' open={snackBar} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 Hangout created successfully!
                 </Alert>

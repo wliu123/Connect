@@ -62,43 +62,14 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
     // dialog for chatsroom end
     
     const classes = useStyles()
-    // get user Info begin
-    useEffect(() => {
-        if (!currentUser) {
 
-            getCurrentUser()
-        }
+    useEffect(() => {
+        getCurrentFriends()
     },[])
-    async function getCurrentUser() {
-        const user = await Auth.currentAuthenticatedUser() 
-        getUserFromTable(user)
-        
-    }
-    async function getUserFromTable(user) {
-        
-        const loggedUser = await API.graphql({
-            query: queries.getUsers,
-            variables: {
-                id: user.username
-            }
-        })
-        setCurrentUser(loggedUser.data.getUsers)
-    }
-    // get user Info end
 
     useEffect(() => {
-        if (currentUser) {
-
-            getCurrentFriends()
-        }
-    },[currentUser])
-
-    useEffect(() => {
-        if (currentUser) {
-
             getOpenChannels()
             getOpenChannelsTwo()
-        }
     }, [])
     
     async function getOpenChannels() {
@@ -190,11 +161,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                                 <OpenChats chat={chat} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
                             )
                         })}
-                        {chosenChats.map((chosen)=> {
-                            return (
-                                <ChosenChat chosen={chosen} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
-                            )
-                        })}
+                         <ChosenChat chosenChats={chosenChats} openChats={openChats} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
                         </>
                     }
                 </div>
