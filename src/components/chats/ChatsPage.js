@@ -127,8 +127,8 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
         >
 
         <Grid container >
-            <Grid item xs={12} >
-                <Typography variant="h5" className="header-message">Chat</Typography>
+            <Grid item xs={12} sx={{height: 100}} >
+                
             </Grid>
         </Grid>
         <Grid container component={Paper} className={classes.chatSection}>

@@ -3,6 +3,7 @@ import {Authenticator, useAuthenticator, View} from '@aws-amplify/ui-react'
 import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 import { useNavigate, useLocation } from 'react-router'
+import './auth.css'
 
 const Authorization = () => {
     const { route } = useAuthenticator((context) => [context.route]);
@@ -21,9 +22,12 @@ const Authorization = () => {
     
     return (
     <View className="auth-wrapper">
+        <div className="repage">
+
       <Authenticator variation="modal">
           
       </Authenticator>
+        </div>
     </View>
         
     )

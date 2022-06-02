@@ -11,14 +11,13 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { useEffect, useState, useTransition } from 'react';
-import { useSearchParams, useNavigate, Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link, NavLink } from "react-router-dom";
 import {Authenticator, useAuthenticator} from '@aws-amplify/ui-react'
-import {Hub, Auth, API} from 'aws-amplify'
 import '@aws-amplify/ui-react/styles.css'
 import ChatOutlinedIcon from '@mui/icons-material/ChatOutlined';
 import ChatSharpIcon from '@mui/icons-material/ChatSharp';
-import { fontFamily } from 'styled-system';
 import '../../App.css'
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 
 const Navbar = ({currentUser}) => {
@@ -106,15 +105,17 @@ const Navbar = ({currentUser}) => {
     return (
       
           
-          <AppBar position="sticky" color='transparent'>
+          <AppBar position="sticky" color='primary' sx={{bgcolor: 'whitesmoke'}}>
             <Container maxWidth="xxl" sx={{height: '7vh'}}>
               <Toolbar disableGutters>
                 <Typography
                   variant="h4"
                   noWrap
-                  component="div"
-                  sx={{ mr: 2, display: { xs: 'none', md: 'flex' } }}
+                  sx={{ mr: 2, display: { xs: 'none', md: 'flex', fontFamily: 'Dancing Script, cursive', textDecoration:'none', color:'black' } }}
                   className="connect"
+                  component={NavLink}
+                  to='/'
+               
                 >
                   Connect
                 </Typography>
@@ -132,7 +133,6 @@ const Navbar = ({currentUser}) => {
                     </IconButton>
                     <Menu
                       id="menu-appbar"
-                      zIndex="20"
                       anchorEl={anchorElNav}
                       anchorOrigin={{
                         vertical: 'bottom',
@@ -168,7 +168,7 @@ const Navbar = ({currentUser}) => {
                 <Box sx={{ flexGrow: 1, mr: 2, pl: 5, display: { xs: 'none', md: 'flex' } }}>
                   {!user? 
                       <Button
-                      sx={{ my: 2, color: 'blue', display: 'block' }}
+                      sx={{ my: 2, color: 'blue', display: 'block', justifyContent:'right' }}
                       onClick={() => navigate("/home")}
                       >
                         Login

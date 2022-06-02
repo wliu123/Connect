@@ -11,6 +11,9 @@ import ChatsPage from "./components/chats/ChatsPage";
 import UserProfile from "./components/profiles/UserProfile";
 import {Auth, API} from 'aws-amplify'
 import * as queries from './graphql/queries';
+import './App.css'
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Grid from '@mui/material/Grid';
 
 
 
@@ -49,7 +52,7 @@ async function getUserFromTable(user) {
 }
 
   return (
-    
+      
       <Authenticator.Provider>
       <Navbar currentUser={currentUser} />
       <Routes>
