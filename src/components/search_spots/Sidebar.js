@@ -14,6 +14,7 @@ import { useState } from 'react';
 import HangoutForm from './HangoutForm';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import Grid from '@mui/material/Grid';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -58,30 +59,39 @@ const Sidebar = ({ setSearchLoc, searchLoc, currentUser }) => {
                     height: '93vh'
                 }}
             >
-                <ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
-                    
-                    {searchLoc[0].photos.map((photo) => {
+                <Box
+                    sx={{
+                        overflowY: 'scroll',
+                        minHeight: 500,
+                        maxHeight: 500
+                    }}
+                >
+
+                    <ImageList sx={{ width: 500}} cols={3} rowHeight={164}>
                         
-                        const photoUrl = photo.getUrl()
-                        return (
+                        {searchLoc[0].photos.map((photo) => {
                             
-                            <ImageListItem key={photoUrl}>
-                            <img
-                                src={`${photoUrl}?w=164&h=164&fit=crop&auto=format`}
-                                srcSet={`${photoUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                                alt="photo from google"
-                                loading="lazy"
-                            />
-                            </ImageListItem>
-                        )
-                    }
-                    
-                    )}
-                </ImageList>
+                            const photoUrl = photo.getUrl()
+                            return (
+                                
+                                <ImageListItem key={photoUrl}>
+                                <img
+                                    src={`${photoUrl}?w=164&h=164&fit=crop&auto=format`}
+                                    srcSet={`${photoUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                                    alt="photo from google"
+                                    loading="lazy"
+                                />
+                                </ImageListItem>
+                            )
+                        }
+                        
+                        )}
+                    </ImageList>
+                </Box>
                 <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
                     {searchLoc[0].name}
                 </Typography>
-                <List>
+                <List style={{width: '100%', alignContent:'center', textAlign:'center', justifyContent:'center'}}>
                     <ListItem>
                         <ListItemText primary={searchLoc[0].formatted_address} />
                     </ListItem>
@@ -108,12 +118,13 @@ const Sidebar = ({ setSearchLoc, searchLoc, currentUser }) => {
                         } />
                     </ListItem>
                 </List>
-                
-                {searchLoc[0].reviews.map((review) => {
-                    return (
-                        <Reviews review={review} />
-                    )
-                })}
+
+                    {searchLoc[0].reviews.map((review) => {
+                        return (
+                            <Reviews review={review} />
+                        )
+                    })}
+               
             </Box>
         }
             {open ? <HangoutForm setSearchLoc={setSearchLoc} setSnackBar={setSnackBar} currentUser={currentUser} selectAddress={selectAddress} setOpen={setOpen} open={open}/> : null}   

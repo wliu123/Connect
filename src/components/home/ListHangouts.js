@@ -34,15 +34,17 @@ const ListHangouts = ({dateRange, setDateRange, value}) => {
     
     
     return (
-       
+       <>
+                <Typography sx={{ mt: 4, mb: 2, mx: 20, alignSelf:'center', alignContent:'center' }} variant="h6" component="div">
+                    Upcoming Hangouts
+                </Typography>
         <Box
             sx={{
-                mx: 5
+                mx: 5,
+                maxHeight: 1100,
+                overflowY:'scroll'
             }}
         >
-            <Typography sx={{ mt: 4, mb: 2, mx: 20 }} variant="h6" component="div">
-                Upcoming Hangouts
-            </Typography>
             {
                 !dateRange.length>0
                 ?
@@ -77,6 +79,7 @@ const ListHangouts = ({dateRange, setDateRange, value}) => {
                 )
             }
         </Box>
+       </>
     )
     
 }

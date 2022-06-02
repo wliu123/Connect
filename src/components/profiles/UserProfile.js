@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import {Auth, API, Storage} from 'aws-amplify'
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
-import * as queries from '../../graphql/queries';
 import Button from '@mui/material/Button';
 import { styled } from '@mui/material/styles';
 import Axios from 'axios'
@@ -11,6 +10,8 @@ import * as mutations from '../../graphql/mutations'
 import "../../App.css"
 import Grid from '@mui/material/Grid';
 import EditProfile from './EditProfile';
+import ListEvents from './ListEvents';
+import * as queries from '../../graphql/queries';
 
 
 
@@ -22,6 +23,24 @@ const Input = styled('input')({
 const UserProfile = ({setCurrentUser, currentUser}) => {
     
     const [editProfile, setEditProfile] = useState(false)
+    const [createdEvents, setCreatedEvents] = useState([])
+
+    useEffect(() => {
+        listAllEvents()
+    }, [])
+    console.log(currentUser)
+    async function listAllEvents() {
+        let filter = {
+            created_by: {
+                contains: currentUser.email
+            }
+        }
+        const listEvents = await API.graphql({
+            query: queries.listHangouts,
+            variables: {filter: filter}
+        })
+        setCreatedEvents(listEvents.data.listHangouts.items)
+    }
 
     function onChange(e) {
         const file = e.target.files[0]
@@ -161,10 +180,8 @@ const UserProfile = ({setCurrentUser, currentUser}) => {
                     </Box>
                 </Box>
             </Grid>
-            <Grid>
-
-            </Grid>
             <EditProfile currentUser={currentUser} editProfile={editProfile} setEditProfile={setEditProfile}/>
+            <ListEvents createdEvents={createdEvents} currentUser={currentUser}/>
         </Box>
     )
     
