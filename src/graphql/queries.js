@@ -260,6 +260,8 @@ export const getChannel = /* GraphQL */ `
     getChannel(id: $id) {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
@@ -278,6 +280,8 @@ export const listChannels = /* GraphQL */ `
       items {
         id
         creator
+        creator_name
+        creator_picture
         chosen
         chosen_name
         chosen_picture

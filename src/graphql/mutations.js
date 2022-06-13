@@ -243,6 +243,8 @@ export const createChannel = /* GraphQL */ `
     createChannel(input: $input, condition: $condition) {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
@@ -259,6 +261,8 @@ export const updateChannel = /* GraphQL */ `
     updateChannel(input: $input, condition: $condition) {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
@@ -275,6 +279,8 @@ export const deleteChannel = /* GraphQL */ `
     deleteChannel(input: $input, condition: $condition) {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture

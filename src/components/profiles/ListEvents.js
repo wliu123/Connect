@@ -46,7 +46,7 @@ const Accordion = styled((props) => (
   }));
 
 const ListEvents = ({currentUser, createdEvents}) => {
-    console.log(createdEvents)
+   
     const [expanded, setExpanded] = useState("");
 
     const handleChange = (panel) => (event, newExpanded) => {

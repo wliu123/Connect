@@ -21,14 +21,14 @@ const Input = styled('input')({
 
 
 const UserProfile = ({setCurrentUser, currentUser}) => {
-    
+    console.log(currentUser)
     const [editProfile, setEditProfile] = useState(false)
     const [createdEvents, setCreatedEvents] = useState([])
 
     useEffect(() => {
         listAllEvents()
     }, [])
-    console.log(currentUser)
+    
     async function listAllEvents() {
         let filter = {
             created_by: {

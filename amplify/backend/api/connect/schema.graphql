@@ -71,6 +71,8 @@ type Channel @model @auth(rules: [
 {
   id: ID!
   creator: String!
+  creator_name: String!
+  creator_picture: String!
   chosen: String!
   chosen_name: String!
   chosen_picture: String!

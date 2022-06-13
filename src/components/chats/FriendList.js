@@ -35,7 +35,9 @@ const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, ac
             chosen: value.email,
             chosen_name: value.name,
             chosen_picture: value.profile_picture,
-            creator: currentUser.email
+            creator: currentUser.email,
+            creator_name: currentUser.name,
+            creator_picture: currentUser.profile_picture
         }
         await API.graphql({
             query: mutations.createChannel,

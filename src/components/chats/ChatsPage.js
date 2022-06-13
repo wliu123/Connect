@@ -84,7 +84,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-        
+        console.log(openChats)
         setOpenChats(openChats.data.listChannels.items)
     }
     async function getCurrentFriends() {
@@ -115,7 +115,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-        
+        console.log(chosenChat)
         setChosenChats(chosenChat.data.listChannels.items)
     }
 
@@ -151,10 +151,8 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                 </Grid>
                 <Divider />
                 <div className='app-sidebar-friend'>
-                    {!openChats.length > 0
+                    {openChats.length > 0 || chosenChats.length > 0
                         ?
-                        null
-                        :
                         <>
                         {openChats.map((chat) => {
                             return (
@@ -163,6 +161,8 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                         })}
                          <ChosenChat chosenChats={chosenChats} openChats={openChats} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
                         </>
+                        :
+                        null
                     }
                 </div>
                 
@@ -170,7 +170,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             <Grid item xs={9}>
                 <List className={classes.messageArea}>
                 <div className="messages-scroller">
-                    <Messages activeFriend={activeFriend} currentUser={currentUser} messages={messages} setMessages={setMessages}/>
+                    {activeFriend?<Messages activeFriend={activeFriend} currentUser={currentUser} messages={messages} setMessages={setMessages}/>:null}
                 </div>
 
                 </List>

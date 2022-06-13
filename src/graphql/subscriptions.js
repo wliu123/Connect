@@ -204,6 +204,8 @@ export const onCreateChannel = /* GraphQL */ `
     onCreateChannel {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
@@ -217,6 +219,8 @@ export const onUpdateChannel = /* GraphQL */ `
     onUpdateChannel {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
@@ -230,6 +234,8 @@ export const onDeleteChannel = /* GraphQL */ `
     onDeleteChannel {
       id
       creator
+      creator_name
+      creator_picture
       chosen
       chosen_name
       chosen_picture
