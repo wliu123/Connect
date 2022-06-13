@@ -40,13 +40,13 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
           <ListItem
             key={userStranger.name}
             secondaryAction={
-              toggle
+              toggle === userStranger.id
               ?
               <VerifiedUserIcon/>
               :
-              <IconButton edge="end" aria-label="follow friend" onClick={()=> {
+              <IconButton edge="end" aria-label="follow friend" onClick={(e)=> {
                   followFriend(userStranger)
-                  setToggle(true)
+                  setToggle(userStranger.id)
                 }}>
               <PersonAddAltIcon/>
               </IconButton>

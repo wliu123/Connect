@@ -50,6 +50,7 @@ const ListEvents = ({currentUser, createdEvents}) => {
     const [expanded, setExpanded] = useState("");
 
     const handleChange = (panel) => (event, newExpanded) => {
+      console.log(newExpanded)
         setExpanded(newExpanded ? panel : false);
     };
 
