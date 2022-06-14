@@ -106,7 +106,7 @@ const Navbar = ({currentUser}) => {
       
           
           <AppBar position="sticky" color='primary' sx={{bgcolor: 'whitesmoke'}}>
-            <Container maxWidth="xxl" sx={{height: '7vh'}}>
+            <Container maxWidth="xxl" sx={{height: '9vh'}}>
               <Toolbar disableGutters>
                 <Typography
                   variant="h4"

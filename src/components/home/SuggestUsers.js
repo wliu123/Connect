@@ -33,6 +33,8 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
 
 
     return (
+     
+
     <List dense sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
       {filteredUsers.map((userStranger) => {
         
@@ -53,7 +55,7 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
             }
             disablePadding
           >
-              <Box sx={{ flexGrow: 0 }}>
+              <Box sx={{ flexGrow: 0, }}>
                 <ListItemButton onClick={handleOpenUserMenu}>
                 <ListItemAvatar>
                     <Avatar
@@ -88,6 +90,7 @@ const SuggestUsers = ({friendsList, suggestedUsers, followFriend}) => {
         );
       })}
     </List>
+   
     )
     
 }

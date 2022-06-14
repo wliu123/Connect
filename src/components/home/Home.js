@@ -166,10 +166,18 @@ const Home = ({setCurrentUser, currentUser}) => {
             <ListHangouts dateRange={dateRange} setDateRange={setDateRange} value={value} />
           </Grid>
           <Grid item xs={9} md={9} lg={3}>
-            <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                Suggested Users
-            </Typography>
-            <SuggestUsers friendsList={friendsList} followFriend={followFriend} suggestedUsers={suggestedUsers}/>
+                <Box
+                sx={{
+                    maxHeight:800,
+                    overflowY:'scroll'
+                }}
+                >
+                <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
+                    Suggested Users
+                </Typography>
+
+                <SuggestUsers friendsList={friendsList} followFriend={followFriend} suggestedUsers={suggestedUsers}/>
+                </Box>
           </Grid>
         </Grid>
     </Box>
