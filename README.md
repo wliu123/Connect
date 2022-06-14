@@ -1,70 +1,19 @@
-# Getting Started with Create React App
+# Getting Started with Connect
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was architected using AWS Cloud services for the backend to create a serverless application. Connect is based off of Meetup with some additional functionality such as being able to utilize Google Maps while on the platform to generate a hangout between you and your friends. Key functional highlights include a chat feature between friends, google maps to generate hangouts, a full follow feature among friends and ability to see other user's hangouts. Coming soon: public/private hangouts, email subscription based off of created hangouts and sharing events feature and ability to filter events based off of calendar selection.
 
-## Available Scripts
+I chose to create a serverless application as my Flatiron capstone project as I wanted to challenge myself with building on top of AWS services. Although I am certified through the AWS SAA exam, I felt most of it was more conceptual based as opposed to actually doing real-world exercises hence my idea to create Connect. The inspiration for the app itself was mostly due to me always forgetting hangouts with my friends due to the work in our everyday lives and wanted to create an application that helped set reminders.
 
-In the project directory, you can run:
+## AWS Architecture
 
-### `npm start`
+Figma link: https://www.figma.com/file/kVMZFuWwZ9eESFlb9Ji5WR/Connect-Architecture?node-id=0%3A1
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Some features have still not been implemented based off of the shown architecture but this is what the project should end up being. Stretch goal is to add a video chat feature utilizing AWS Chime services.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## NPM Libraries
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Feel free to run bundle install but the primary libraries used were:
+(npm i @reach/combobox) combobox: for GoogleMaps Places Autocomplete
+(npm i google-map-react) google-maps-react: for GoogleMaps functionality
+MUI libraries for CSS
+(npm i @aws-amplify/cli) amplify CLI: to enable serverless functionalities
