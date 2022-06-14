@@ -12,6 +12,7 @@ import Grid from '@mui/material/Grid';
 import EditProfile from './EditProfile';
 import ListEvents from './ListEvents';
 import * as queries from '../../graphql/queries';
+import Bio from './Bio';
 
 
 
@@ -108,7 +109,8 @@ const UserProfile = ({setCurrentUser, currentUser}) => {
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                textAlign: 'center'
+                                textAlign: 'center',
+                                pb:3
                             }}
                         >
                             <Avatar style={{border: '5px solid lightgray'}} src={currentUser.profile_picture} sx={{height: '400px', width: '400px'}}/>
@@ -146,7 +148,9 @@ const UserProfile = ({setCurrentUser, currentUser}) => {
                        borderBottom: "1px solid",
                         display:"flex", 
                         width:'100%',
-                        pt:4
+                        py:2,
+                        alignContent:'center',
+                        justifyContent:'center'
                     }}
                 >
                     <Box
@@ -158,14 +162,14 @@ const UserProfile = ({setCurrentUser, currentUser}) => {
                         width: '25%'
                     }}
                     >
-                        <Typography variant="h5" className="header-message">Follower Count: 20</Typography>
+                        <Typography variant="h5" className="header-message">Follower Count: {currentUser.followersCount}</Typography>
                     </Box>
                     <Box
                         sx={{
                             width: '25%'
                         }}
                     >
-                        <Typography variant="h5" className="header-message">Followed Count: 25</Typography>
+                        <Typography variant="h5" className="header-message">Followed Count: {currentUser.followingCount}</Typography>
 
                     </Box>
                     <Box
@@ -181,7 +185,17 @@ const UserProfile = ({setCurrentUser, currentUser}) => {
                 </Box>
             </Grid>
             <EditProfile currentUser={currentUser} editProfile={editProfile} setEditProfile={setEditProfile}/>
-            <ListEvents createdEvents={createdEvents} currentUser={currentUser}/>
+            <Grid container direction='columns' spacing={{xs:2}} columns={12} sx={{height:400}}>
+                <Grid item xs={4} sx={{paddingTop:3}}>
+                <ListEvents createdEvents={createdEvents} currentUser={currentUser}/>
+                </Grid>
+                <Grid item xs={4}>
+                <Bio currentUser={currentUser}/>
+                </Grid>
+                <Grid item xs={4}>
+                <div>HelloWorld</div>    
+                </Grid>
+            </Grid>
         </Box>
     )
     

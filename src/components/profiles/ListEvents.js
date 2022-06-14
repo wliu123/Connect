@@ -8,6 +8,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { API } from 'aws-amplify';
 import * as queries from '../../graphql/queries';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Box from '@mui/material/Box';
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -56,29 +59,40 @@ const ListEvents = ({currentUser, createdEvents}) => {
 
 
     return (
-        <div>
-        {createdEvents.map((event) => {
-            return (
-                <Accordion expanded={expanded === event.id} onChange={handleChange(event.id)} sx={{width:1420}}>
-                    <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-                    <Typography>{event.title}</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                    <Typography>
-                        Date: {event.date}
-                    </Typography>
-                    <Typography>
-                        Address: {event.location}
-                    </Typography>
-                    <Typography>
-                        Description: {event.description}
-                    </Typography>
-                    </AccordionDetails>
-                </Accordion>
-            )
-        })}
-    
-    </div>
+        <Card>
+          <CardContent>
+          <Typography variant="h6" sx={{textAlign:"center"}} gutterBottom>
+            Events Made
+          </Typography>
+          <Box
+            sx={{
+              maxHeight: 309,
+              overflowY: 'scroll'
+            }}
+          >
+            {createdEvents.map((event) => {
+                return (
+                    <Accordion expanded={expanded === event.id} onChange={handleChange(event.id)} sx={{width:"100%"}}>
+                        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+                        <Typography>{event.title}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Typography>
+                            Date: {event.date}
+                        </Typography>
+                        <Typography>
+                            Address: {event.location}
+                        </Typography>
+                        <Typography>
+                            Description: {event.description}
+                        </Typography>
+                        </AccordionDetails>
+                    </Accordion>
+                )
+            })}
+          </Box>
+          </CardContent>
+        </Card>
     )
     
 }
