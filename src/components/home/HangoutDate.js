@@ -5,8 +5,6 @@ import ListSubheader from '@mui/material/ListSubheader';
 import EachHangout from "./EachHangout";
 import Divider from '@material-ui/core/Divider';
 
-
-
 const HangoutDate = ({eachDate}) => {
     const [listHangoutsByDate, setListHangoutsByDate] = useState([])
     useEffect(() => {

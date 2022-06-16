@@ -1,38 +1,10 @@
-import { useEffect, useState } from "react"
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HangoutDate from "./HangoutDate";
 
-const ListHangouts = ({dateRange, setDateRange, value}) => {
-
-    // set date ranges from current date begin
-    useEffect(() => {
-        const ranges = Array.from({length: 20}, (x, i) => i)
-        const getDate = value => (relative = 0) => {
-            let newDate = value ? new Date(value) : new Date();
-            newDate.setDate(newDate.getDate() + relative);
-            return newDate
-        }
-        const getDates = (value, offsets=[0]) => {
-            const getDateOffset = getDate(value);
-            return offsets.map((offset, index) => {
-                const offSetDate = getDateOffset(offset)
-                return {
-                    id: index,
-                    date: offSetDate.toDateString()
-                }
-            })
-        }
-        const state = {
-            dates: getDates(value, ranges)
-        }
-        setDateRange([state])
-    },[])
-    // set date ranges from current date end 
-    
-    
-    
+const ListHangouts = ({dateRange}) => {
+ 
     return (
        <>
                 <Typography sx={{ mt: 4, mb: 2, mx: 20, alignSelf:'center', alignContent:'center' }} variant="h6" component="div">
