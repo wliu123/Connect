@@ -1,5 +1,5 @@
 
-import { Routes, Route, useSearchParams, useNavigate, Link, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react"
 import Navbar from './components/navbar/Navbar'
 import Landing from "./components/landing_page/Landing";
@@ -12,8 +12,6 @@ import UserProfile from "./components/profiles/UserProfile";
 import {Auth, API} from 'aws-amplify'
 import * as queries from './graphql/queries';
 import './App.css'
-import GitHubIcon from '@mui/icons-material/GitHub';
-import Grid from '@mui/material/Grid';
 
 
 

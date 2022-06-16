@@ -10,22 +10,47 @@ import { useState, useEffect } from 'react';
 import AttendingEvents from './AttendingEvents';
 import Typography from '@mui/material/Typography';
 import Friends from './Friends';
-import Groups from './Groups';
 import SuggestUsers from './SuggestUsers';
 import ListHangouts from './ListHangouts';
+import { useSearchParams } from 'react-router-dom';
+import FilterHangout from './FilterHangout';
 
 
 const Home = ({setCurrentUser, currentUser}) => {
-    const [value,setValue] = useState(new Date())
+    const [value,setValue] = useState(false)
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
     const [dateRange, setDateRange] = useState([])
+    const [searchParams, setSearchParams] = useSearchParams()
     
-    
-  
     useEffect(() => {
         getCurrentUser()
     },[])
+
+    useEffect(() => {
+        const ranges = Array.from({length: 20}, (x, i) => i)
+        const getDate = value => (relative = 0) => {
+            let newDate = value ? new Date(value) : new Date();
+            newDate.setDate(newDate.getDate() + relative);
+            return newDate
+        }
+        const getDates = (value, offsets=[0]) => {
+            const getDateOffset = getDate(value);
+            return offsets.map((offset, index) => {
+                const offSetDate = getDateOffset(offset)
+                return {
+                    id: index,
+                    date: offSetDate.toDateString()
+                }
+            })
+        }
+        const state = {
+            dates: getDates(value, ranges)
+        }
+        console.log(state)
+        setDateRange([state])
+    },[])
+
 
     async function getCurrentUser() {
         const user = await Auth.currentAuthenticatedUser() 
@@ -60,8 +85,6 @@ const Home = ({setCurrentUser, currentUser}) => {
        
     }
 
-    
-    
     async function followFriend(userStranger) {
         
         const friendDetail = {
@@ -81,28 +104,6 @@ const Home = ({setCurrentUser, currentUser}) => {
             }
         })
     }
-    // trying to get calendar to filter hangouts shown!!! use querysearch params to filter the state?
-
-    // useEffect(() => {
-    //     console.log("This is changing")
-    //     const filtered = dateRange[0].dates.filter((date)=>{
-    //         console.log(date.date)
-    //         return value.toDateString() === date.date
-    //     })
-    //     console.log(filtered)
-    // }, [value])
-
-    // async function filterDate (newValue) {
-    //     if (value !== newValue) {
-    //         const filtered = await dateRange[0].dates.filter((date)=>{
-    //             console.log(date.date)
-    //             return value.toDateString() === date.date
-    //         })
-    //         console.log(filtered)
-    //     }
-    // }
-    
-    // trying to get calendar to filter hangouts shown!!!
     
     return (
         
@@ -126,24 +127,9 @@ const Home = ({setCurrentUser, currentUser}) => {
             >
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <CalendarPicker 
-                        
-                        value={value} 
                         onChange={(newValue) => {
-                            setValue(newValue);
-                            // trying to get calendar to filter hangouts shown!!!
-
-                            // filterDate(newValue)
-                                // if (value !== newValue) {
-
-                                //     const filtered = dateRange[0].dates.filter((date)=>{
-                                //         console.log(date.date)
-                                //         return value.toDateString() === date.date
-                                //     })
-                                //     console.log(filtered)
-                                // }
-                            
-                            // trying to get calendar to filter hangouts shown!!!
-                        
+                            setValue(newValue)
+                            setSearchParams({date: newValue})               
                         }}
                     />
                 </LocalizationProvider>
@@ -156,14 +142,17 @@ const Home = ({setCurrentUser, currentUser}) => {
                     Friends
                 </Typography>
                         <Friends currentUser={currentUser} setFriendsList={setFriendsList} friendsList={friendsList}/>
-                {/* <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-                    Groups
-                </Typography>
-                        <Groups /> */}
+                
             </Box>
           </Grid>
           <Grid item xs={9} md={9} lg={6}>
-            <ListHangouts dateRange={dateRange} setDateRange={setDateRange} value={value} />
+            {
+                value
+                ?
+                <FilterHangout searchParams={searchParams}/>
+                :
+                <ListHangouts dateRange={dateRange} />
+            }
           </Grid>
           <Grid item xs={9} md={9} lg={3}>
                 <Box
