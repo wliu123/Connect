@@ -19,6 +19,12 @@
     "apiconnectGraphQLAPIIdOutput": {
       "Type": "String",
       "Default": "apiconnectGraphQLAPIIdOutput"
+    },
+    "production": {
+      "Type": "String"
+    },
+    "dev": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -102,6 +108,12 @@
             },
             "API_CONNECT_GRAPHQLAPIIDOUTPUT": {
               "Ref": "apiconnectGraphQLAPIIdOutput"
+            },
+            "production": {
+              "Ref": "production"
+            },
+            "dev": {
+              "Ref": "dev"
             }
           }
         },

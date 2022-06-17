@@ -1,20 +1,20 @@
 import { useEffect, useState } from "react"
 import * as queries from '../../graphql/queries';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
 import { API } from 'aws-amplify';
 import EachUpcoming from "./EachUpcoming";
 import Divider from '@material-ui/core/Divider';
 
+
 const EachEvent = ({currentUser, event}) => {
   
     const [eventsByDate, setEventsByDate] = useState([])
+    
     useEffect(() => {
-            getUpcomingEvents(event)
+            getCreatedEvents(event)
     }, [])
 
-    async function getUpcomingEvents(event) {
+    async function getCreatedEvents(event) {
        
         let filter = {
             created_by: {
@@ -29,18 +29,21 @@ const EachEvent = ({currentUser, event}) => {
             },
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
+        console.log(eventByDate)
         let eventItems = eventByDate.data.hangoutsByDate.items
+        console.log(eventItems)
         setEventsByDate([
             ...eventsByDate,
             eventItems
         ])
     }
+
     return (
         <>
         <ListSubheader>{event}</ListSubheader> 
         <Divider/>
                     {
-                        !eventsByDate.length>0
+                        !eventsByDate.length>0 
                         ?
                         <div>Loading...</div>
                         :
@@ -48,6 +51,7 @@ const EachEvent = ({currentUser, event}) => {
                         {eventsByDate[0].map((event) => (
                             <EachUpcoming event={event}/>
                         ))}
+                      
                         </>
 
                     }

@@ -27,6 +27,7 @@ const FilterHangout = ({searchParams}) => {
                 sx={{
                     mx: 5,
                     maxHeight: 1100,
+                    minHeight: 1100,
                     overflowY:'scroll'
                 }}
             >
@@ -37,7 +38,7 @@ const FilterHangout = ({searchParams}) => {
                     position: 'relative',
                     overflow: 'auto',
                     '& ul': { padding: 0 },
-                    border: 'solid 1px'
+                    
                 }}
                 subheader={<li />}
                 >

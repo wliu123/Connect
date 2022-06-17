@@ -5,17 +5,24 @@ import ListSubheader from '@mui/material/ListSubheader';
 import EachHangout from "./EachHangout";
 import Divider from '@material-ui/core/Divider';
 
-const HangoutDate = ({eachDate}) => {
+const HangoutDate = ({currentUser, eachDate}) => {
+  
     const [listHangoutsByDate, setListHangoutsByDate] = useState([])
     useEffect(() => {
         getDateHangouts(eachDate)
     }, [])
 
     async function getDateHangouts(eachDate) {
+        let filter = {
+            created_by:{
+                notContains: currentUser.email
+            }
+        }
         const hangoutByDate = await API.graphql({
             query: queries.hangoutsByDate,
             variables: {
-                date: eachDate
+                date: eachDate,
+                filter:filter
             },
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })

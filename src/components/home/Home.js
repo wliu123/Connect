@@ -151,7 +151,7 @@ const Home = ({setCurrentUser, currentUser}) => {
                 ?
                 <FilterHangout searchParams={searchParams}/>
                 :
-                <ListHangouts dateRange={dateRange} />
+                <ListHangouts currentUser={currentUser} dateRange={dateRange} />
             }
           </Grid>
           <Grid item xs={9} md={9} lg={3}>

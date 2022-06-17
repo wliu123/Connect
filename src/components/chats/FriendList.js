@@ -59,7 +59,7 @@ const FriendList = ({selectedValue, setFriendsChat, open, onClose, openChats, ac
         {
             !friendsChat.length>0
             ?
-            <div>Loading...</div>
+            <div>Follow friends to chat with them!</div>
             :
             filteredFriends?.map((eachFriend) => {
           

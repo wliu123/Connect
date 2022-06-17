@@ -64,6 +64,7 @@ const ListEvents = ({currentUser, createdEvents}) => {
           <Box
             sx={{
               maxHeight: 309,
+              minHeight: 309,
               overflowY: 'scroll'
             }}
           >

@@ -84,7 +84,6 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-        console.log(openChats)
         setOpenChats(openChats.data.listChannels.items)
     }
     async function getCurrentFriends() {
@@ -115,7 +114,6 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
             variables: {filter: filter},
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-        console.log(chosenChat)
         setChosenChats(chosenChat.data.listChannels.items)
     }
 
@@ -162,7 +160,7 @@ const ChatsPage = ({setCurrentUser, currentUser}) => {
                          <ChosenChat chosenChats={chosenChats} openChats={openChats} activeFriend={activeFriend} setActiveFriend={setActiveFriend}/>
                         </>
                         :
-                        null
+                        <div>no chats open </div>
                     }
                 </div>
                 

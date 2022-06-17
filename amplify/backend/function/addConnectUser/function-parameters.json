@@ -9,5 +9,15 @@
       ]
     }
   },
-  "lambdaLayers": []
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "production",
+      "environmentVariableName": "production"
+    },
+    {
+      "cloudFormationParameterName": "dev",
+      "environmentVariableName": "dev"
+    }
+  ]
 }

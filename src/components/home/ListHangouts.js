@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import HangoutDate from "./HangoutDate";
 
-const ListHangouts = ({dateRange}) => {
+const ListHangouts = ({currentUser, dateRange}) => {
  
     return (
        <>
@@ -31,7 +31,7 @@ const ListHangouts = ({dateRange}) => {
                             position: 'relative',
                             overflow: 'auto',
                             '& ul': { padding: 0 },
-                            border: 'solid 1px'
+                            
                         }}
                         subheader={<li />}
                     >
@@ -40,7 +40,7 @@ const ListHangouts = ({dateRange}) => {
                             return (
                             <li key={eachDate.id}>
                                 <ul>
-                                    <HangoutDate eachDate={eachDate.date} />
+                                    <HangoutDate currentUser={currentUser} eachDate={eachDate.date} />
                                   
                                 </ul>
                             </li>

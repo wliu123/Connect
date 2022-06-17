@@ -19,7 +19,9 @@
       "function": {
         "addConnectUser": {
           "deploymentBucketName": "amplify-connect-dev-210538-deployment",
-          "s3Key": "amplify-builds/addConnectUser-4e33754258314a5a3561-build.zip"
+          "s3Key": "amplify-builds/addConnectUser-4e33754258314a5a3561-build.zip",
+          "production": "addprodfunction",
+          "dev": "adddevfunction"
         },
         "S3Triggerbd155781": {
           "deploymentBucketName": "amplify-connect-dev-210538-deployment",
