@@ -48,7 +48,7 @@ const HangoutDate = ({currentUser, eachDate}) => {
                {listHangoutsByDate[0].map((hangout) => {
                    
                        return (
-                           <EachHangout hangout={hangout}/>
+                           <EachHangout currentUser={currentUser} hangout={hangout}/>
                        )
                    
                })}

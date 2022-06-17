@@ -36,6 +36,7 @@ const HangoutForm = ({ setSearchLoc, setSnackBar, currentUser, open, setOpen, se
             description: formValues.description,
             title: formValues.title,
             location: selectAddress,
+            joined_by: [],
             public: isPublic
         }
         setOpen(false)

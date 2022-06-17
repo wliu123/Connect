@@ -62,7 +62,7 @@ async function getUserFromTable(user) {
           element={
             <RequireAuth>
 
-              <Home currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+              <Home currentUser={currentUser} />
             </RequireAuth>
           } 
         />

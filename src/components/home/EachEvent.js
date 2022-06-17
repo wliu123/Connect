@@ -29,9 +29,7 @@ const EachEvent = ({currentUser, event}) => {
             },
             authMode: "AMAZON_COGNITO_USER_POOLS"
         })
-        console.log(eventByDate)
         let eventItems = eventByDate.data.hangoutsByDate.items
-        console.log(eventItems)
         setEventsByDate([
             ...eventsByDate,
             eventItems

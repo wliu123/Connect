@@ -16,7 +16,7 @@ import { useSearchParams } from 'react-router-dom';
 import FilterHangout from './FilterHangout';
 
 
-const Home = ({setCurrentUser, currentUser}) => {
+const Home = ({currentUser}) => {
     const [value,setValue] = useState(false)
     const [suggestedUsers, setSuggestedUsers] = useState([])
     const [friendsList, setFriendsList] = useState([])
@@ -24,7 +24,7 @@ const Home = ({setCurrentUser, currentUser}) => {
     const [searchParams, setSearchParams] = useSearchParams()
     
     useEffect(() => {
-        getCurrentUser()
+        listUsers(currentUser)
     },[])
 
     useEffect(() => {
@@ -51,29 +51,10 @@ const Home = ({setCurrentUser, currentUser}) => {
         setDateRange([state])
     },[])
 
-
-    async function getCurrentUser() {
-        const user = await Auth.currentAuthenticatedUser() 
-        getUserFromTable(user)
-        listUsers(user.attributes.email)
-        
-    }
-
-    async function getUserFromTable(user) {
-        
-        const loggedUser = await API.graphql({
-            query: queries.getUsers,
-            variables: {
-                id: user.username
-            }
-        })
-        setCurrentUser(loggedUser.data.getUsers)
-    }
-
-    async function listUsers(email) {
+    async function listUsers(currentUser) {
         let filter = {
             email: {
-                notContains: email
+                notContains: currentUser.email
             }
         }
         const listAll = await API.graphql({
@@ -82,7 +63,6 @@ const Home = ({setCurrentUser, currentUser}) => {
         })
         const res = await listAll.data.listUsers.items
         setSuggestedUsers(res)
-       
     }
 
     async function followFriend(userStranger) {
